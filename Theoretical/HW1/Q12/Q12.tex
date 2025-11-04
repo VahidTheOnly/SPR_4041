@@ -1,0 +1,111 @@
+% Defining document class and essential packages
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{parskip}
+
+% Setting up the title
+\title{Statistical Pattern Recognition - Homework 1 \\ Question 12}
+\author{Vahid Maleki \\ Student ID: 40313004}
+\date{October 11, 2025}
+
+% Beginning the document
+\begin{document}
+	\maketitle
+	
+	% Introducing the problem statement
+	\section*{Question 12}
+	Consider two random variables \( x \) and \( y \), with means \( \mu_x \), \( \mu_y \) and standard deviations \( \delta_x \), \( \delta_y \), respectively. The covariance and correlation coefficient are defined as:
+	\[
+	\text{cov}(x, y) = E[(x - \mu_x)(y - \mu_y)] = E(xy) - \mu_x \mu_y,
+	\]
+	\[
+	\rho_{xy} = \frac{\text{cov}(x, y)}{\delta_x \delta_y}.
+	\]
+	\textbf{(a)} Prove that the absolute value of the correlation coefficient between two random variables is less than or equal to one, i.e., \( |\rho_{xy}| \leq 1 \). \textit{Hint:} Use the Cauchy–Schwarz inequality: \( [E(xy)]^2 \leq E(x^2) E(y^2) \).
+	
+	\textbf{(b)} Under what conditions does \( \rho_{xy} = 1 \)? Under what conditions does \( \rho_{xy} = -1 \)?
+	
+	% Providing the solution step-by-step
+	\section*{Solution}
+	
+	\subsection*{Part (a): Prove \( |\rho_{xy}| \leq 1 \)}
+	To prove that the absolute value of the correlation coefficient \( |\rho_{xy}| \leq 1 \), we start with the definition of the correlation coefficient:
+	\[
+	\rho_{xy} = \frac{\text{cov}(x, y)}{\delta_x \delta_y},
+	\]
+	where \( \text{cov}(x, y) = E[(x - \mu_x)(y - \mu_y)] \), and \( \delta_x = \sqrt{E[(x - \mu_x)^2]} \), \( \delta_y = \sqrt{E[(y - \mu_y)^2]} \) are the standard deviations of \( x \) and \( y \).
+		
+		Let’s define centered random variables \( u = x - \mu_x \) and \( v = y - \mu_y \). Then:
+		\[
+		\text{cov}(x, y) = E[(x - \mu_x)(y - \mu_y)] = E[uv],
+		\]
+		\[
+		\delta_x = \sqrt{E[(x - \mu_x)^2]} = \sqrt{E[u^2]}, \quad \delta_y = \sqrt{E[(y - \mu_y)^2]} = \sqrt{E[v^2]},
+		\]
+		\[
+		\rho_{xy} = \frac{E[uv]}{\sqrt{E[u^2]} \sqrt{E[v^2]}}.
+		\]
+		
+		We need to show \( |\rho_{xy}| \leq 1 \), which implies:
+		\[
+		\left| \frac{E[uv]}{\sqrt{E[u^2]} \sqrt{E[v^2]}} \right| \leq 1 \quad \text{or} \quad |E[uv]| \leq \sqrt{E[u^2]} \sqrt{E[v^2]}.
+		\]
+		
+		Apply the Cauchy-Schwarz inequality, which states for any two random variables \( a \) and \( b \):
+		\[
+		(E[ab])^2 \leq E[a^2] E[b^2].
+		\]
+		
+		Set \( a = u = x - \mu_x \), \( b = v = y - \mu_y \). Then:
+		\[
+		(E[uv])^2 \leq E[u^2] E[v^2].
+		\]
+		
+		Taking the square root of both sides (noting that the expectations are non-negative):
+		\[
+		|E[uv]| \leq \sqrt{E[u^2] E[v^2]} = \sqrt{E[u^2]} \sqrt{E[v^2]}.
+		\]
+		
+		Since \( E[u^2] = E[(x - \mu_x)^2] = \delta_x^2 \), and \( E[v^2] = E[(y - \mu_y)^2] = \delta_y^2 \), we have:
+		\[
+		|E[uv]| \leq \delta_x \delta_y.
+		\]
+		
+		Thus:
+		\[
+		\left| \frac{E[uv]}{\delta_x \delta_y} \right| = \frac{|E[uv]|}{\delta_x \delta_y} \leq \frac{\delta_x \delta_y}{\delta_x \delta_y} = 1.
+		\]
+		
+		Therefore:
+		\[
+		|\rho_{xy}| = \left| \frac{\text{cov}(x, y)}{\delta_x \delta_y} \right| \leq 1.
+		\]
+		
+		This completes the proof for part (a).
+		
+		\subsection*{Part (b): Conditions for \( \rho_{xy} = 1 \) and \( \rho_{xy} = -1 \)}
+		The correlation coefficient \( \rho_{xy} = \pm 1 \) when equality holds in the Cauchy-Schwarz inequality. For random variables \( u \) and \( v \), equality in \( (E[uv])^2 \leq E[u^2] E[v^2] \) holds if and only if \( u \) and \( v \) are linearly dependent, i.e., there exists a constant \( k \) such that \( v = k u \) almost surely.
+		
+		Rewrite in terms of \( x \) and \( y \):
+		\[
+		y - \mu_y = k (x - \mu_x).
+		\]
+		Thus:
+		\[
+		y = k x + (\mu_y - k \mu_x).
+		\]
+		
+		This is a linear relationship between \( x \) and \( y \).
+		
+		- \textbf{Condition for \( \rho_{xy} = 1 \)}: Equality holds, and the covariance is positive, i.e., \( \text{cov}(x, y) = \delta_x \delta_y \). This occurs when \( k > 0 \), meaning \( y \) increases linearly with \( x \). Thus, \( \rho_{xy} = 1 \) when \( y = a x + b \) with \( a > 0 \), where \( a \) and \( b \) are constants, ensuring a positive linear relationship.
+		
+		- \textbf{Condition for \( \rho_{xy} = -1 \)}: Equality holds, and the covariance is negative, i.e., \( \text{cov}(x, y) = -\delta_x \delta_y \). This occurs when \( k < 0 \), meaning \( y \) decreases linearly with \( x \). Thus, \( \rho_{xy} = -1 \) when \( y = a x + b \) with \( a < 0 \).
+		
+		In summary:
+		- \( \rho_{xy} = 1 \) when \( y = a x + b \) with \( a > 0 \).
+		- \( \rho_{xy} = -1 \) when \( y = a x + b \) with \( a < 0 \).
+		
+	\end{document}

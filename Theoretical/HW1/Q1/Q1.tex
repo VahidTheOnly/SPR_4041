@@ -1,0 +1,145 @@
+% Defining document class and essential packages
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{parskip}
+
+% Setting up the title
+\title{Statistical Pattern Recognition - Homework 1 \\ Question 1}
+\author{Vahid Maleki \\ Student ID: 40313004}
+\date{October 11, 2025}
+
+% Beginning the document
+\begin{document}
+	\maketitle
+	
+	% Introducing the problem statement
+	\section*{Question 1}
+	Given the prior probabilities \( p(w_1) = p(w_2) \) and the class-conditional densities functions \( p(x|w_1) = N_x(0, 1) \) and \( p(x|w_2) = N_x(1, 2) \), calculate and draw the posterior probabilities \( p(w_1|x) \) and \( p(w_2|x) \).
+	
+	% Providing the solution step-by-step
+	\section*{Solution}
+	
+	% Step 1: Stating the given information
+	Since \( p(w_1) = p(w_2) \), and the priors must sum to 1, we have:
+	\[
+	p(w_1) = p(w_2) = 0.5.
+	\]
+	The class-conditional densities functions are:
+	\[
+	p(x|w_1) = N_x(0, 1) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right),
+	\]
+	\[
+	p(x|w_2) = N_x(1, 2) = \frac{1}{\sqrt{2\pi \cdot 2}} \exp\left(-\frac{(x-1)^2}{2 \cdot 2}\right) = \frac{1}{\sqrt{4\pi}} \exp\left(-\frac{(x-1)^2}{4}\right).
+	\]
+	
+	% Step 2: Applying Bayes' theorem
+	To find the posterior probabilities \( p(w_1|x) \) and \( p(w_2|x) \), we use Bayes' theorem:
+	\[
+	p(w_i|x) = \frac{p(x|w_i) p(w_i)}{p(x)}, \quad i = 1, 2,
+	\]
+	where \( p(x) \) is the evidence, given by:
+	\[
+	p(x) = p(x|w_1) p(w_1) + p(x|w_2) p(w_2).
+	\]
+	
+	Substitute the known values:
+	\[
+	p(x) = p(x|w_1) \cdot 0.5 + p(x|w_2) \cdot 0.5 = 0.5 p(x|w_1) + 0.5 p(x|w_2).
+	\]
+	
+	So:
+	\[
+	p(w_1|x) = \frac{p(x|w_1) \cdot 0.5}{p(x)}, \quad p(w_2|x) = \frac{p(x|w_2) \cdot 0.5}{p(x)}.
+	\]
+	
+	% Step 3: Simplifying the posterior probabilities
+	Since the factor of 0.5 appears in both numerator and denominator, we can simplify:
+	\[
+	p(w_1|x) = \frac{p(x|w_1)}{p(x|w_1) + p(x|w_2)}, \quad p(w_2|x) = \frac{p(x|w_2)}{p(x|w_1) + p(x|w_2)}.
+	\]
+	
+	Substitute the class-conditional densities functions:
+	\[
+	p(x|w_1) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right),
+	\]
+	\[
+	p(x|w_2) = \frac{1}{\sqrt{4\pi}} \exp\left(-\frac{(x-1)^2}{4}\right).
+	\]
+	
+	Thus:
+	\[
+	p(w_1|x) = \frac{\frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right)}{\frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right) + \frac{1}{\sqrt{4\pi}} \exp\left(-\frac{(x-1)^2}{4}\right)}.
+	\]
+	
+	Simplify the denominator:
+	\[
+	\sqrt{4\pi} = \sqrt{2 \cdot 2\pi} = \sqrt{2} \cdot \sqrt{2\pi},
+	\]
+	so:
+	\[
+	\frac{1}{\sqrt{4\pi}} = \frac{1}{\sqrt{2} \cdot \sqrt{2\pi}}.
+	\]
+	
+	To simplify \( p(w_1|x) \), multiply numerator and denominator by \( \sqrt{2\pi} \):
+	\[
+	p(w_1|x) = \frac{\exp\left(-\frac{x^2}{2}\right)}{\exp\left(-\frac{x^2}{2}\right) + \frac{1}{\sqrt{2}} \exp\left(-\frac{(x-1)^2}{4}\right)}.
+	\]
+	
+	Similarly:
+	\[
+	p(w_2|x) = \frac{\frac{1}{\sqrt{2}} \exp\left(-\frac{(x-1)^2}{4}\right)}{\exp\left(-\frac{x^2}{2}\right) + \frac{1}{\sqrt{2}} \exp\left(-\frac{(x-1)^2}{4}\right)}.
+	\]
+	
+	% Step 4: Alternative form using logistic function
+	Notice that the posterior probabilities can be expressed using the logistic function. Let:
+	\[
+	a = \frac{p(x|w_1)}{p(x|w_2)} = \frac{\frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right)}{\frac{1}{\sqrt{4\pi}} \exp\left(-\frac{(x-1)^2}{4}\right)} = \sqrt{2} \exp\left(-\frac{x^2}{2} + \frac{(x-1)^2}{4}\right).
+	\]
+	
+	Simplify the exponent:
+	\[
+	-\frac{x^2}{2} + \frac{(x-1)^2}{4} = -\frac{x^2}{2} + \frac{x^2 - 2x + 1}{4} = -\frac{2x^2}{4} + \frac{x^2 - 2x + 1}{4} = \frac{-x^2 - 2x + 1}{4}.
+	\]
+	
+	Thus:
+	\[
+	a = \sqrt{2} \exp\left(\frac{-x^2 - 2x + 1}{4}\right).
+	\]
+	
+	Then:
+	\[
+	p(w_1|x) = \frac{a}{a + 1}, \quad p(w_2|x) = \frac{1}{a + 1}.
+	\]
+	
+	This form is suitable for numerical computation.
+	
+	% Step 5: Plotting the posterior probabilities
+	\section*{Plotting \( p(w_1|x) \) and \( p(w_2|x) \)}
+	To draw \( p(w_1|x) \) and \( p(w_2|x) \), plot the functions:
+	\[
+	p(w_1|x) = \frac{\exp\left(-\frac{x^2}{2}\right)}{\exp\left(-\frac{x^2}{2}\right) + \frac{1}{\sqrt{2}} \exp\left(-\frac{(x-1)^2}{4}\right)},
+	\]
+	\[
+	p(w_2|x) = \frac{\frac{1}{\sqrt{2}} \exp\left(-\frac{(x-1)^2}{4}\right)}{\exp\left(-\frac{x^2}{2}\right) + \frac{1}{\sqrt{2}} \exp\left(-\frac{(x-1)^2}{4}\right)}.
+	\]
+	
+	These can be plotted using computational tools like Python (with matplotlib) or MATLAB over a range of \( x \), e.g., \( x \in [-5, 5] \). The plot will show:
+	- \( p(w_1|x) \) starting high for negative \( x \), decreasing as \( x \) increases.
+	- \( p(w_2|x) \) starting low for negative \( x \), increasing as \( x \) increases.
+	- The curves intersect where \( p(w_1|x) = p(w_2|x) = 0.5 \), which occurs when \( p(x|w_1) = p(x|w_2) \).
+	
+	To find the intersection, solve:
+	\[
+	\frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2}\right) = \frac{1}{\sqrt{4\pi}} \exp\left(-\frac{(x-1)^2}{4}\right).
+	\]
+	
+	This requires numerical methods, but the plot will visually confirm the behavior.
+	
+	% Concluding the solution
+	The final expressions for the posterior probabilities are provided above, and the plots can be generated using the given formulas in a suitable programming environment.
+	
+\end{document}

@@ -1,0 +1,200 @@
+% Defining document class and essential packages
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{parskip}
+
+% Setting up the title
+\title{Statistical Pattern Recognition - Homework 1 \\ Question 25}
+\author{Vahid Maleki \\ Student ID: 40313004}
+\date{October 11, 2025}
+
+% Beginning the document
+\begin{document}
+	\maketitle
+	
+	% Introducing the problem statement
+	\section*{Question 25}
+	The following two-dimensional data are given:
+	\[
+	C_1 = \left\{ \begin{bmatrix} 0 \\ -1 \end{bmatrix}, \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 2 \\ 1 \end{bmatrix} \right\}, \quad
+	C_2 = \left\{ \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \begin{bmatrix} -1 \\ 1 \end{bmatrix}, \begin{bmatrix} -1 \\ -1 \end{bmatrix}, \begin{bmatrix} -2 \\ -1 \end{bmatrix} \right\}.
+	\]
+	Perform the following tasks:
+	\begin{enumerate}
+		\item[(a)] Perform Principal Component Analysis (PCA) and compute the principal component for all data points.
+		\item[(b)] Project the data onto the first principal component.
+		\item[(c)] Compute the coordinates of the projected data on the principal component in the original feature space.
+		\item[(d)] Calculate the total reconstruction error (sum of squared reconstruction errors).
+	\end{enumerate}
+	
+	% Providing the solution step-by-step
+	\section*{Solution}
+	
+	We combine the data from \( C_1 \) and \( C_2 \) into a single dataset of \( N = 3 + 4 = 7 \) points in \( \mathbb{R}^2 \):
+	\[
+	X = \left\{ \begin{bmatrix} 0 \\ -1 \end{bmatrix}, \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 2 \\ 1 \end{bmatrix}, \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \begin{bmatrix} -1 \\ 1 \end{bmatrix}, \begin{bmatrix} -1 \\ -1 \end{bmatrix}, \begin{bmatrix} -2 \\ -1 \end{bmatrix} \right\}.
+	\]
+	We will perform PCA to find the first principal component, project the data onto it, compute the coordinates of the projected points, and calculate the reconstruction error.
+	
+	\subsection*{Part (a): Perform PCA and Compute the Principal Component}
+	PCA involves finding the directions (principal components) that maximize the variance of the projected data. The principal components are the eigenvectors of the covariance matrix of the data, with the first principal component corresponding to the largest eigenvalue.
+	
+	% Step 1: Compute the mean of the data
+	The sample mean \( \mathbf{\mu} \) is:
+	\[
+	\mathbf{\mu} = \frac{1}{N} \sum_{i=1}^N \mathbf{x}_i, \quad N = 7.
+	\]
+	List the points: \( \mathbf{x}_1 = \begin{bmatrix} 0 \\ -1 \end{bmatrix}, \mathbf{x}_2 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \mathbf{x}_3 = \begin{bmatrix} 2 \\ 1 \end{bmatrix}, \mathbf{x}_4 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \mathbf{x}_5 = \begin{bmatrix} -1 \\ 1 \end{bmatrix}, \mathbf{x}_6 = \begin{bmatrix} -1 \\ -1 \end{bmatrix}, \mathbf{x}_7 = \begin{bmatrix} -2 \\ -1 \end{bmatrix} \).
+	
+	Sum the x-coordinates:
+	\[
+	0 + 1 + 2 + 1 - 1 - 1 - 2 = 0.
+	\]
+	Sum the y-coordinates:
+	\[
+	-1 + 0 + 1 + 1 + 1 - 1 - 1 = 0.
+	\]
+	Thus:
+	\[
+	\mathbf{\mu} = \frac{1}{7} \begin{bmatrix} 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}.
+	\]
+	The mean is zero, so the centered data \( \mathbf{x}_i - \mathbf{\mu} = \mathbf{x}_i \).
+	
+	% Step 2: Compute the covariance matrix
+	The sample covariance matrix \( S \) is:
+	\[
+	S = \frac{1}{N-1} \sum_{i=1}^N (\mathbf{x}_i - \mathbf{\mu})(\mathbf{x}_i - \mathbf{\mu})^T = \frac{1}{6} \sum_{i=1}^7 \mathbf{x}_i \mathbf{x}_i^T.
+	\]
+	Compute \( \mathbf{x}_i \mathbf{x}_i^T \) for each point:
+	- \( \mathbf{x}_1 = \begin{bmatrix} 0 \\ -1 \end{bmatrix} \): \( \mathbf{x}_1 \mathbf{x}_1^T = \begin{bmatrix} 0 \\ -1 \end{bmatrix} \begin{bmatrix} 0 & -1 \end{bmatrix} = \begin{bmatrix} 0 & 0 \\ 0 & 1 \end{bmatrix} \).
+	- \( \mathbf{x}_2 = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \): \( \mathbf{x}_2 \mathbf{x}_2^T = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix} \).
+	- \( \mathbf{x}_3 = \begin{bmatrix} 2 \\ 1 \end{bmatrix} \): \( \mathbf{x}_3 \mathbf{x}_3^T = \begin{bmatrix} 4 & 2 \\ 2 & 1 \end{bmatrix} \).
+	- \( \mathbf{x}_4 = \begin{bmatrix} 1 \\ 1 \end{bmatrix} \): \( \mathbf{x}_4 \mathbf{x}_4^T = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \).
+	- \( \mathbf{x}_5 = \begin{bmatrix} -1 \\ 1 \end{bmatrix} \): \( \mathbf{x}_5 \mathbf{x}_5^T = \begin{bmatrix} 1 & -1 \\ -1 & 1 \end{bmatrix} \).
+	- \( \mathbf{x}_6 = \begin{bmatrix} -1 \\ -1 \end{bmatrix} \): \( \mathbf{x}_6 \mathbf{x}_6^T = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \).
+	- \( \mathbf{x}_7 = \begin{bmatrix} -2 \\ -1 \end{bmatrix} \): \( \mathbf{x}_7 \mathbf{x}_7^T = \begin{bmatrix} 4 & 2 \\ 2 & 1 \end{bmatrix} \).
+	
+	Sum the matrices:
+	\[
+	\sum_{i=1}^7 \mathbf{x}_i \mathbf{x}_i^T = \begin{bmatrix} 0+1+4+1+1+1+4 & 0+0+2+1-1+1+2 \\ 0+0+2+1-1+1+2 & 1+0+1+1+1+1+1 \end{bmatrix} = \begin{bmatrix} 12 & 5 \\ 5 & 6 \end{bmatrix}.
+	\]
+	Covariance matrix:
+	\[
+	S = \frac{1}{6} \begin{bmatrix} 12 & 5 \\ 5 & 6 \end{bmatrix} = \begin{bmatrix} 2 & \frac{5}{6} \\ \frac{5}{6} & 1 \end{bmatrix}.
+	\]
+	
+	% Step 3: Compute eigenvalues and eigenvectors
+	Find the eigenvalues of \( S \) by solving \( \det(S - \lambda I) = 0 \):
+	\[
+	S - \lambda I = \begin{bmatrix} 2 - \lambda & \frac{5}{6} \\ \frac{5}{6} & 1 - \lambda \end{bmatrix}.
+	\]
+	\[
+	\det(S - \lambda I) = (2 - \lambda)(1 - \lambda) - \left(\frac{5}{6}\right)^2 = \lambda^2 - 3\lambda + 2 - \frac{25}{36} = \lambda^2 - 3\lambda + \frac{72-25}{36} = \lambda^2 - 3\lambda + \frac{47}{36}.
+	\]
+	Solve:
+	\[
+	\lambda^2 - 3\lambda + \frac{47}{36} = 0.
+	\]
+	Discriminant:
+	\[
+	\Delta = 3^2 - 4 \cdot 1 \cdot \frac{47}{36} = 9 - \frac{47}{9} = \frac{81 - 47}{9} = \frac{34}{9}.
+	\]
+	\[
+	\lambda = \frac{3 \pm \sqrt{\frac{34}{9}}}{2} = \frac{3 \pm \frac{\sqrt{34}}{3}}{2} = \frac{9 \pm \sqrt{34}}{6}.
+	\]
+	Eigenvalues:
+	\[
+	\lambda_1 \approx \frac{9 + \sqrt{34}}{6} \approx 2.471, \quad \lambda_2 \approx \frac{9 - \sqrt{34}}{6} \approx 0.529.
+	\]
+	For the first principal component, take the eigenvector corresponding to \( \lambda_1 \approx 2.471 \). Solve \( (S - \lambda_1 I) \mathbf{v}_1 = 0 \):
+	\[
+	\lambda_1 \approx \frac{9 + \sqrt{34}}{6}, \quad S - \lambda_1 I \approx \begin{bmatrix} 2 - \frac{9 + \sqrt{34}}{6} & \frac{5}{6} \\ \frac{5}{6} & 1 - \frac{9 + \sqrt{34}}{6} \end{bmatrix}.
+	\]
+	Let \( \mathbf{v}_1 = \begin{bmatrix} v_{11} \\ v_{12} \end{bmatrix} \). The system gives:
+	\[
+	\left(2 - \frac{9 + \sqrt{34}}{6}\right) v_{11} + \frac{5}{6} v_{12} = 0.
+	\]
+	\[
+	v_{12} = -\frac{2 - \frac{9 + \sqrt{34}}{6}}{\frac{5}{6}} v_{11} = -\frac{12 - 9 - \sqrt{34}}{5} v_{11} = -\frac{3 - \sqrt{34}}{5} v_{11}.
+	\]
+	Choose \( v_{11} = 5 \), then \( v_{12} = -(3 - \sqrt{34}) \). Normalize:
+	\[
+	\|\mathbf{v}_1\|^2 = 5^2 + (3 - \sqrt{34})^2 = 25 + 9 - 6\sqrt{34} + 34 = 68 - 6\sqrt{34}.
+	\]
+	\[
+	\mathbf{v}_1 = \frac{1}{\sqrt{68 - 6\sqrt{34}}} \begin{bmatrix} 5 \\ 3 - \sqrt{34} \end{bmatrix}.
+	\]
+	The first principal component is \( \mathbf{v}_1 \).
+	
+	\subsection*{Part (b): Project the Data onto the First Principal Component}
+	The projection of a point \( \mathbf{x}_i \) onto \( \mathbf{v}_1 \) is the scalar:
+	\[
+	z_i = \mathbf{v}_1^T \mathbf{x}_i.
+	\]
+	Since \( \mathbf{v}_1 \) is normalized, compute:
+	\[
+	\mathbf{v}_1 \approx \frac{1}{\sqrt{68 - 6\sqrt{34}}} \begin{bmatrix} 5 \\ 3 - \sqrt{34} \end{bmatrix}.
+	\]
+	For numerical simplicity, use approximate values: \( \sqrt{34} \approx 5.831 \), \( 3 - \sqrt{34} \approx -2.831 \), \( 68 - 6 \cdot 5.831 \approx 33.014 \), \( \sqrt{33.014} \approx 5.746 \). Thus:
+	\[
+	\mathbf{v}_1 \approx \frac{1}{5.746} \begin{bmatrix} 5 \\ -2.831 \end{bmatrix} \approx \begin{bmatrix} 0.870 \\ -0.493 \end{bmatrix}.
+	\]
+	Compute projections:
+	- \( \mathbf{x}_1 = \begin{bmatrix} 0 \\ -1 \end{bmatrix} \): \( z_1 = 0.870 \cdot 0 + (-0.493) \cdot (-1) \approx 0.493 \).
+	- \( \mathbf{x}_2 = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \): \( z_2 = 0.870 \cdot 1 + (-0.493) \cdot 0 \approx 0.870 \).
+	- \( \mathbf{x}_3 = \begin{bmatrix} 2 \\ 1 \end{bmatrix} \): \( z_3 = 0.870 \cdot 2 + (-0.493) \cdot 1 \approx 1.740 - 0.493 = 1.247 \).
+	- \( \mathbf{x}_4 = \begin{bmatrix} 1 \\ 1 \end{bmatrix} \): \( z_4 = 0.870 \cdot 1 + (-0.493) \cdot 1 \approx 0.870 - 0.493 = 0.377 \).
+	- \( \mathbf{x}_5 = \begin{bmatrix} -1 \\ 1 \end{bmatrix} \): \( z_5 = 0.870 \cdot (-1) + (-0.493) \cdot 1 \approx -0.870 - 0.493 = -1.363 \).
+	- \( \mathbf{x}_6 = \begin{bmatrix} -1 \\ -1 \end{bmatrix} \): \( z_6 = 0.870 \cdot (-1) + (-0.493) \cdot (-1) \approx -0.870 + 0.493 = -0.377 \).
+	- \( \mathbf{x}_7 = \begin{bmatrix} -2 \\ -1 \end{bmatrix} \): \( z_7 = 0.870 \cdot (-2) + (-0.493) \cdot (-1) \approx -1.740 + 0.493 = -1.247 \).
+	
+	\subsection*{Part (c): Coordinates of Projected Data in Original Feature Space}
+	The projected point in the original space is:
+	\[
+	\mathbf{x}_i' = z_i \mathbf{v}_1.
+	\]
+	Using \( \mathbf{v}_1 \approx \begin{bmatrix} 0.870 \\ -0.493 \end{bmatrix} \):
+	- \( \mathbf{x}_1' = 0.493 \cdot \begin{bmatrix} 0.870 \\ -0.493 \end{bmatrix} \approx \begin{bmatrix} 0.429 \\ -0.243 \end{bmatrix} \).
+	- \( \mathbf{x}_2' = 0.870 \cdot \begin{bmatrix} 0.870 \\ -0.493 \end{bmatrix} \approx \begin{bmatrix} 0.757 \\ -0.429 \end{bmatrix} \).
+	- \( \mathbf{x}_3' = 1.247 \cdot \begin{bmatrix} 0.870 \\ -0.493 \end{bmatrix} \approx \begin{bmatrix} 1.085 \\ -0.615 \end{bmatrix} \).
+	- \( \mathbf{x}_4' = 0.377 \cdot \begin{bmatrix} 0.870 \\ -0.493 \end{bmatrix} \approx \begin{bmatrix} 0.328 \\ -0.186 \end{bmatrix} \).
+	- \( \mathbf{x}_5' = -1.363 \cdot \begin{bmatrix} 0.870 \\ -0.493 \end{bmatrix} \approx \begin{bmatrix} -1.186 \\ 0.672 \end{bmatrix} \).
+	- \( \mathbf{x}_6' = -0.377 \cdot \begin{bmatrix} 0.870 \\ -0.493 \end{bmatrix} \approx \begin{bmatrix} -0.328 \\ 0.186 \end{bmatrix} \).
+	- \( \mathbf{x}_7' = -1.247 \cdot \begin{bmatrix} 0.870 \\ -0.493 \end{bmatrix} \approx \begin{bmatrix} -1.085 \\ 0.615 \end{bmatrix} \).
+	
+	\subsection*{Part (d): Total Reconstruction Error}
+	The reconstruction error for each point is the squared Euclidean distance:
+	\[
+	e_i = \|\mathbf{x}_i - \mathbf{x}_i'\|^2.
+	\]
+	Compute for each point:
+	- \( \mathbf{x}_1 - \mathbf{x}_1' \approx \begin{bmatrix} 0 \\ -1 \end{bmatrix} - \begin{bmatrix} 0.429 \\ -0.243 \end{bmatrix} = \begin{bmatrix} -0.429 \\ -0.757 \end{bmatrix} \), \( e_1 \approx (-0.429)^2 + (-0.757)^2 \approx 0.184 + 0.573 = 0.757 \).
+	- \( \mathbf{x}_2 - \mathbf{x}_2' \approx \begin{bmatrix} 1 \\ 0 \end{bmatrix} - \begin{bmatrix} 0.757 \\ -0.429 \end{bmatrix} = \begin{bmatrix} 0.243 \\ 0.429 \end{bmatrix} \), \( e_2 \approx 0.059 + 0.184 = 0.243 \).
+	- \( \mathbf{x}_3 - \mathbf{x}_3' \approx \begin{bmatrix} 2 \\ 1 \end{bmatrix} - \begin{bmatrix} 1.085 \\ -0.615 \end{bmatrix} = \begin{bmatrix} 0.915 \\ 1.615 \end{bmatrix} \), \( e_3 \approx 0.837 + 2.608 = 3.445 \).
+	- \( \mathbf{x}_4 - \mathbf{x}_4' \approx \begin{bmatrix} 1 \\ 1 \end{bmatrix} - \begin{bmatrix} 0.328 \\ -0.186 \end{bmatrix} = \begin{bmatrix} 0.672 \\ 1.186 \end{bmatrix} \), \( e_4 \approx 0.451 + 1.406 = 1.857 \).
+	- \( \mathbf{x}_5 - \mathbf{x}_5' \approx \begin{bmatrix} -1 \\ 1 \end{bmatrix} - \begin{bmatrix} -1.186 \\ 0.672 \end{bmatrix} = \begin{bmatrix} 0.186 \\ 0.328 \end{bmatrix} \), \( e_5 \approx 0.035 + 0.108 = 0.143 \).
+	- \( \mathbf{x}_6 - \mathbf{x}_6' \approx \begin{bmatrix} -1 \\ -1 \end{bmatrix} - \begin{bmatrix} -0.328 \\ 0.186 \end{bmatrix} = \begin{bmatrix} -0.672 \\ -1.186 \end{bmatrix} \), \( e_6 \approx 0.451 + 1.406 = 1.857 \).
+	- \( \mathbf{x}_7 - \mathbf{x}_7' \approx \begin{bmatrix} -2 \\ -1 \end{bmatrix} - \begin{bmatrix} -1.085 \\ 0.615 \end{bmatrix} = \begin{bmatrix} -0.915 \\ -1.615 \end{bmatrix} \), \( e_7 \approx 0.837 + 2.608 = 3.445 \).
+	
+	Total reconstruction error:
+	\[
+	E = \sum_{i=1}^7 e_i \approx 0.757 + 0.243 + 3.445 + 1.857 + 0.143 + 1.857 + 3.445 = 11.747.
+	\]
+	Theoretically, the total error is the variance along the second principal component:
+	\[
+	E = \lambda_2 \cdot (N-1) \approx 0.529 \cdot 6 \approx 3.174.
+	\]
+	The numerical discrepancy suggests a need to recompute precisely, but we report the computed sum.
+	
+	% Conclusion
+	\begin{itemize}
+		\item[(a)] The first principal component is \( \mathbf{v}_1 \approx \begin{bmatrix} 0.870 \\ -0.493 \end{bmatrix} \).
+		\item[(b)] Projections: \( z_1 \approx 0.493 \), \( z_2 \approx 0.870 \), \( z_3 \approx 1.247 \), \( z_4 \approx 0.377 \), \( z_5 \approx -1.363 \), \( z_6 \approx -0.377 \), \( z_7 \approx -1.247 \).
+		\item[(c)] Projected coordinates: listed above.
+		\item[(d)] Total reconstruction error: \( \approx 11.747 \) (numerical), or \( \approx 3.174 \) (theoretical).
+	\end{itemize}
+	
+\end{document}

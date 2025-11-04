@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Q20 - HW2: Pattern Recognition}
+\author{Vahid Maleki \\ Student ID: 40313004}
+\date{October 18, 2025}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Question 20}
+	
+	Assume that the \textbf{eigenvalues of the data covariance matrix} are \textbf{non-zero} and \textbf{distinct}. Which of the following statements about \textbf{PCA (Principal Component Analysis)} is \textbf{correct}? For your chosen answer, \textbf{provide justification}.
+	
+	\subsection{Options}
+	
+	\textbf{(a)} Adding one new dimension with a constant value of 1 to the end of all feature vectors does \textbf{not change} the PCA result (except that one additional \textbf{zero eigenvalue} will appear in the covariance matrix, and each original eigenvector will have one extra zero component appended).
+	\\\\
+	\textbf{(b)} If PCA is first applied to reduce the dimensionality from $d$ to $d'$, and then PCA is again applied to reduce it from $d'$ to $d''$ (where $d > d' > d''$), the final result will be \textbf{the same} as applying PCA \textbf{once} directly to reduce the dimensionality from $d$ to $d''$.
+	\\\\
+	\textbf{(c)} If all feature vectors undergo a \textbf{fixed arbitrary rotation} before applying PCA, the \textbf{directions of the principal components} will \textbf{not change}.
+	\\\\
+	\textbf{(d)} If all feature vectors undergo a \textbf{fixed arbitrary rotation} before applying PCA, the \textbf{largest eigenvalue} of the sample covariance matrix will \textbf{remain unchanged}.
+	
+	\subsection{Solution}
+	
+	Let's evaluate each option to determine which statements are correct.
+	\\\\
+	\textbf{Option (a):} Adding one new dimension with a constant value of 1 to the end of all feature vectors does not change the PCA result (except that one additional zero eigenvalue will appear in the covariance matrix, and each original eigenvector will have one extra zero component appended).
+	\\\\
+	- \textbf{Evaluation:} When a new dimension with a constant value (e.g., 1) is added to all feature vectors, this dimension has zero variance because all samples have the same value. The covariance between this new dimension and any original dimension is also zero, as covariance involves deviations from the mean, and the deviations in the new dimension are zero. Suppose the original covariance matrix is $\Sigma$ (of size $d \times d$). The new covariance matrix becomes:
+	
+	\[
+	\Sigma' = \begin{bmatrix}
+		\Sigma & \mathbf{0} \\
+		\mathbf{0}^T & 0
+	\end{bmatrix}
+	\]
+	The eigenvalues of $\Sigma'$ are the eigenvalues of $\Sigma$ plus one additional eigenvalue of 0. The eigenvectors of $\Sigma$ are extended with a zero in the new dimension, and there is one additional eigenvector corresponding to the new dimension (e.g., $[0, 0, \ldots, 0, 1]^T$) with eigenvalue 0. Since PCA selects the eigenvectors corresponding to the largest (non-zero) eigenvalues, the principal components in the original $d$-dimensional space remain unchanged, as the new dimension contributes no variance. Thus, this statement is \textbf{true}.
+	\\\\
+	\textbf{Option (b):} If PCA is first applied to reduce the dimensionality from $d$ to $d'$, and then PCA is again applied to reduce it from $d'$ to $d''$ (where $d > d' > d''$), the final result will be the same as applying PCA once directly to reduce the dimensionality from $d$ to $d''$.
+	\\\\
+	- \textbf{Evaluation:} Applying PCA to reduce from $d$ to $d'$ projects the data onto the subspace spanned by the top $d'$ eigenvectors of the covariance matrix. Applying PCA again to the projected data (in the $d'$-dimensional space) finds the principal components of the covariance matrix of the projected data. However, the covariance matrix of the projected data is not necessarily the same as the restriction of the original covariance matrix to the top $d'$ dimensions. The principal components in the second PCA step are computed in the new coordinate system, which may not align with the top $d''$ eigenvectors of the original covariance matrix. Thus, the final subspace may differ from the one obtained by applying PCA directly from $d$ to $d''$. This statement is \textbf{false}.
+	\\\\
+	\textbf{Option (c):} If all feature vectors undergo a fixed arbitrary rotation before applying PCA, the directions of the principal components will not change.
+	\\\\
+	- \textbf{Evaluation:} A fixed arbitrary rotation of the feature vectors corresponds to applying an orthogonal transformation matrix $R$ (where $R^T R = I$). If the original data has covariance matrix $\Sigma$, the covariance matrix of the rotated data is $R \Sigma R^T$. The eigenvectors of $R \Sigma R^T$ are $R$ times the eigenvectors of $\Sigma$, meaning the principal component directions are rotated by $R$. Thus, the directions of the principal components change in the original coordinate system. This statement is \textbf{false}.
+	\\\\
+	\textbf{Option (d):} If all feature vectors undergo a fixed arbitrary rotation before applying PCA, the largest eigenvalue of the sample covariance matrix will remain unchanged.
+	\\\\
+	- \textbf{Evaluation:} As noted in option (c), if the original covariance matrix is $\Sigma$, the covariance matrix after rotation by an orthogonal matrix $R$ is $R \Sigma R^T$. Since $R$ is orthogonal, the eigenvalues of $R \Sigma R^T$ are the same as those of $\Sigma$, because the eigenvalues are invariant under similarity transformations. Thus, the largest eigenvalue remains unchanged. This statement is \textbf{true}.
+	\\\\
+	\textbf{Correct Statements:} Options (a) and (d) are correct.
+	\\\\
+	\textbf{Justification for Chosen Answers:}
+	\\\\
+	- \textbf{(a):} Adding a constant feature does not affect the variance structure of the original data. The new dimension has zero variance and zero covariance with other dimensions, resulting in a zero eigenvalue and an extended eigenvector with a zero component. The principal components in the original space remain unchanged, making this statement true.
+	\\\\
+	- \textbf{(d):} A rotation is an orthogonal transformation, which preserves the eigenvalues of the covariance matrix. Since the eigenvalues represent the variances along the principal axes, the largest eigenvalue remains unchanged, making this statement true.
+	\\\\
+	\textbf{Final Answer:}
+	
+	\[
+	\boxed{\text{(a) and (d)}}
+	\]
+	
+\end{document}

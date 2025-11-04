@@ -1,0 +1,119 @@
+% Defining document class and essential packages
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{parskip}
+
+% Setting up the title
+\title{Statistical Pattern Recognition - Homework 1 \\ Question 24}
+\author{Vahid Maleki \\ Student ID: 40313004}
+\date{October 11, 2025}
+
+% Beginning the document
+\begin{document}
+	\maketitle
+	
+	% Introducing the problem statement
+	\section*{Question 24}
+	Suppose \( \lambda_i \) and \( \mathbf{v}_i \) are the eigenvalues and eigenvectors of matrix \( A \) (\( i = 1, \ldots, n \)). The matrix \( A A^T \) represents the covariance matrix of a set of samples. Compute the eigenvalues and eigenvectors of \( A A^T \) in terms of \( \lambda_i \), \( \mathbf{v}_i \), and \( A \).
+	
+	% Providing the solution step-by-step
+	\section*{Solution}
+	
+	We need to find the eigenvalues and eigenvectors of the matrix \( A A^T \), given that \( A \) is an \( n \times n \) matrix with eigenvalues \( \lambda_i \) and eigenvectors \( \mathbf{v}_i \) for \( i = 1, \ldots, n \). Since \( A A^T \) is a covariance matrix, it is symmetric (\( (A A^T)^T = A A^T \)) and positive semi-definite, implying its eigenvalues are real and non-negative.
+	
+	% Step 1: Understanding the eigenvalue-eigenvector relationship for A
+	For the matrix \( A \), the eigenvalue-eigenvector equation is:
+	\[
+	A \mathbf{v}_i = \lambda_i \mathbf{v}_i, \quad i = 1, \ldots, n,
+	\]
+	where \( \mathbf{v}_i \) are the eigenvectors and \( \lambda_i \) are the corresponding eigenvalues. We assume the eigenvectors \( \mathbf{v}_i \) are linearly independent, implying \( A \) is diagonalizable:
+	\[
+	A = V \Lambda V^{-1},
+	\]
+	where \( V = [\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_n] \) is the matrix of eigenvectors, and \( \Lambda = \text{diag}(\lambda_1, \lambda_2, \ldots, \lambda_n) \) is the diagonal matrix of eigenvalues.
+	
+	% Step 2: Computing the matrix A A^T
+	The matrix \( A A^T \) is:
+	\[
+	A A^T = (V \Lambda V^{-1})(V \Lambda V^{-1})^T = V \Lambda V^{-1} (V^{-1})^T \Lambda^T V^T.
+	\]
+	Since \( \Lambda \) is diagonal, \( \Lambda^T = \Lambda \). Also, for the eigenvector matrix \( V \), if \( A \) is real and symmetric, \( V \) can be chosen orthogonal (\( V^{-1} = V^T \)), but we’ll proceed generally for now. Simplify:
+	\[
+	(V^{-1})^T = (V^T)^{-1},
+	\]
+	so:
+	\[
+	A A^T = V \Lambda (V^{-1} (V^T)^{-1}) \Lambda V^T.
+	\]
+	We need to compute the eigenvalues and eigenvectors of \( A A^T \).
+	
+	% Step 3: Eigenvalues of A A^T
+	To find the eigenvalues of \( A A^T \), consider its action on the eigenvectors of \( A \). Let’s test if \( \mathbf{v}_i \) is an eigenvector of \( A A^T \):
+	\[
+	A A^T \mathbf{v}_i = A (A^T \mathbf{v}_i).
+	\]
+	First, compute \( A^T \mathbf{v}_i \). The eigenvalue equation for \( A^T \) is:
+	\[
+	A^T (V^{-1})^T \mathbf{e}_i = \lambda_i (V^{-1})^T \mathbf{e}_i,
+	\]
+	where \( \mathbf{e}_i \) is the \( i \)-th standard basis vector, since:
+	\[
+	A \mathbf{v}_i = \lambda_i \mathbf{v}_i \implies V^{-1} A V = \Lambda \implies A^T = (V \Lambda V^{-1})^T = (V^{-1})^T \Lambda V^T.
+	\]
+	Thus, \( (V^{-1})^T \mathbf{e}_i \) is an eigenvector of \( A^T \) with eigenvalue \( \lambda_i \). However, we need \( A A^T \mathbf{v}_i \):
+	\[
+	A^T \mathbf{v}_i = A^T V \mathbf{e}_i = (V \Lambda V^{-1})^T \mathbf{v}_i = (V^{-1})^T \Lambda V^T \mathbf{v}_i.
+	\]
+	Since \( V^T \mathbf{v}_i = V^T V \mathbf{e}_i = \mathbf{e}_i \), we have:
+	\[
+	A^T \mathbf{v}_i = (V^{-1})^T \Lambda \mathbf{e}_i = (V^{-1})^T \lambda_i \mathbf{e}_i.
+	\]
+	Now apply \( A \):
+	\[
+	A A^T \mathbf{v}_i = A \left( (V^{-1})^T \lambda_i \mathbf{e}_i \right) = \lambda_i V \Lambda V^{-1} (V^{-1})^T \mathbf{e}_i.
+	\]
+	This is complex, so let’s try the eigenvalues via the singular value decomposition (SVD) or properties of \( A A^T \). Since \( A A^T \) is positive semi-definite, its eigenvalues are the squares of the singular values of \( A \). If \( A = V \Lambda V^{-1} \), the singular values of \( A \) are \( |\lambda_i| \), and the eigenvalues of \( A A^T \) are:
+	\[
+	\text{Eigenvalues of } A A^T = \lambda_i^2, \quad i = 1, \ldots, n.
+	\]
+	This follows because:
+	\[
+	A A^T = V \Lambda V^{-1} (V \Lambda V^{-1})^T = V \Lambda (V^{-1} V^{-T}) \Lambda V^T = V \Lambda^2 V^T,
+	\]
+	if \( V \) is orthogonal (\( V^{-1} = V^T \)). However, for a general \( A \), compute the eigenvalues using the characteristic polynomial or test directly.
+	
+	% Step 4: Eigenvectors of A A^T
+	The eigenvectors of \( A A^T \) corresponding to \( \lambda_i^2 \) are typically the right singular vectors of \( A \), but here we need them in terms of \( \mathbf{v}_i \). If \( A \) is symmetric, \( A = A^T \), then \( A A^T = A^2 \), and:
+	\[
+	A^2 \mathbf{v}_i = A (A \mathbf{v}_i) = A (\lambda_i \mathbf{v}_i) = \lambda_i A \mathbf{v}_i = \lambda_i (\lambda_i \mathbf{v}_i) = \lambda_i^2 \mathbf{v}_i.
+	\]
+	Thus, if \( A \) is symmetric, the eigenvectors of \( A A^T \) are \( \mathbf{v}_i \), with eigenvalues \( \lambda_i^2 \).
+	
+	% Step 5: Considering A A^T as a covariance matrix
+	Since \( A A^T \) is a covariance matrix, it is symmetric and positive semi-definite. If \( A \) is the data matrix (samples as columns), then \( A A^T \) relates to the covariance of the samples. Assume \( A \) is \( m \times n \) (if samples are rows, adjust accordingly). The eigenvalues of \( A A^T \) are the squares of the singular values of \( A \). For an \( n \times n \) matrix \( A \) with eigenvalues \( \lambda_i \), the eigenvalues of \( A A^T \) are \( \lambda_i^2 \), and the eigenvectors are \( \mathbf{v}_i \) if \( A \) is symmetric. For a general \( A \), we use SVD:
+	\[
+	A = U \Sigma V^T,
+	\]
+	\[
+	A A^T = (U \Sigma V^T)(V \Sigma U^T) = U \Sigma^2 U^T.
+	\]
+	The eigenvalues of \( A A^T \) are \( \sigma_i^2 \), where \( \sigma_i = |\lambda_i| \) if \( A \) is square and diagonalizable, and the eigenvectors are the columns of \( U \), which may differ from \( \mathbf{v}_i \).
+	
+	% Step 6: Final answer
+	Since \( A A^T \) is a covariance matrix, we assume \( A \) is real and possibly symmetric (common in statistical contexts). Thus:
+	- \textbf{Eigenvalues of \( A A^T \)}: \( \lambda_i^2 \), for \( i = 1, \ldots, n \).
+	- \textbf{Eigenvectors of \( A A^T \)}: \( \mathbf{v}_i \), the same as those of \( A \), if \( A \) is symmetric. If \( A \) is not symmetric, the eigenvectors are the left singular vectors of \( A \), which require computing \( U \) from the SVD of \( A \).
+	
+	For a covariance matrix, assuming symmetry of \( A \):
+	\[
+	A A^T \mathbf{v}_i = \lambda_i^2 \mathbf{v}_i.
+	\]
+	Thus, the eigenvalues are \( \lambda_i^2 \), and the eigenvectors are \( \mathbf{v}_i \).
+	
+	% Conclusion
+	The eigenvalues of \( A A^T \) are \( \lambda_i^2 \), and the eigenvectors are \( \mathbf{v}_i \), assuming \( A \) is symmetric, as is typical for a covariance matrix in statistical pattern recognition.
+	
+\end{document}

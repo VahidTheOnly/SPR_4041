@@ -1,0 +1,117 @@
+% Defining document class and essential packages
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{parskip}
+
+% Setting up the title
+\title{Statistical Pattern Recognition - Homework 1 \\ Question 23}
+\author{Vahid Maleki \\ Student ID: 40313004}
+\date{October 11, 2025}
+
+% Beginning the document
+\begin{document}
+	\maketitle
+	
+	% Introducing the problem statement
+	\section*{Question 23}
+	Which matrix has the eigenvector \( \begin{bmatrix} 1 \\ 2 \end{bmatrix} \) with eigenvalue 2 and the eigenvector \( \begin{bmatrix} -2 \\ 1 \end{bmatrix} \) with eigenvalue 1? Note that the given eigenvectors are not normalized. Provide justification for your choice.
+	
+	Options:
+	\[
+	\text{a) } \begin{bmatrix} \frac{9}{5} & -\frac{2}{5} \\ -\frac{2}{5} & \frac{6}{5} \end{bmatrix}, \quad
+	\text{b) } \begin{bmatrix} 9 & -2 \\ -2 & 6 \end{bmatrix}, \quad
+	\text{c) } \begin{bmatrix} 6 & 2 \\ 2 & 9 \end{bmatrix}, \quad
+	\text{d) } \begin{bmatrix} \frac{6}{5} & \frac{2}{5} \\ \frac{2}{5} & \frac{9}{5} \end{bmatrix}.
+	\]
+	
+	% Providing the solution step-by-step
+	\section*{Solution}
+	
+	To find the correct matrix, we need to identify which 2x2 matrix \( A \) satisfies the eigenvalue-eigenvector equation \( A \mathbf{v} = \lambda \mathbf{v} \) for both given eigenvectors and their corresponding eigenvalues:
+	- Eigenvector \( \mathbf{v}_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix} \) with eigenvalue \( \lambda_1 = 2 \).
+	- Eigenvector \( \mathbf{v}_2 = \begin{bmatrix} -2 \\ 1 \end{bmatrix} \) with eigenvalue \( \lambda_2 = 1 \).
+	
+	For each matrix, we will compute \( A \mathbf{v}_1 \) and check if it equals \( 2 \mathbf{v}_1 \), and compute \( A \mathbf{v}_2 \) and check if it equals \( \mathbf{v}_2 \). The matrix that satisfies both conditions is the correct choice.
+	
+	% Step 1: Testing option (a)
+	\subsection*{Option (a): \( \begin{bmatrix} \frac{9}{5} & -\frac{2}{5} \\ -\frac{2}{5} & \frac{6}{5} \end{bmatrix} \)}
+	Let \( A = \begin{bmatrix} \frac{9}{5} & -\frac{2}{5} \\ -\frac{2}{5} & \frac{6}{5} \end{bmatrix} \).
+	
+	\textbf{For \( \mathbf{v}_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix} \), \( \lambda_1 = 2 \):}
+	\[
+	A \mathbf{v}_1 = \begin{bmatrix} \frac{9}{5} & -\frac{2}{5} \\ -\frac{2}{5} & \frac{6}{5} \end{bmatrix} \begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} \frac{9}{5} \cdot 1 + \left(-\frac{2}{5}\right) \cdot 2 \\ \left(-\frac{2}{5}\right) \cdot 1 + \frac{6}{5} \cdot 2 \end{bmatrix} = \begin{bmatrix} \frac{9}{5} - \frac{4}{5} \\ -\frac{2}{5} + \frac{12}{5} \end{bmatrix} = \begin{bmatrix} \frac{5}{5} \\ \frac{10}{5} \end{bmatrix} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}.
+	\]
+	Compare with \( \lambda_1 \mathbf{v}_1 = 2 \begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} 2 \\ 4 \end{bmatrix} \):
+	\[
+	\begin{bmatrix} 1 \\ 2 \end{bmatrix} \neq \begin{bmatrix} 2 \\ 4 \end{bmatrix}.
+	\]
+	Since \( A \mathbf{v}_1 \neq 2 \mathbf{v}_1 \), option (a) is incorrect without needing to check the second eigenvector.
+	
+	% Step 2: Testing option (b)
+	\subsection*{Option (b): \( \begin{bmatrix} 9 & -2 \\ -2 & 6 \end{bmatrix} \)}
+	Let \( A = \begin{bmatrix} 9 & -2 \\ -2 & 6 \end{bmatrix} \).
+	
+	\textbf{For \( \mathbf{v}_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix} \), \( \lambda_1 = 2 \):}
+	\[
+	A \mathbf{v}_1 = \begin{bmatrix} 9 & -2 \\ -2 & 6 \end{bmatrix} \begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} 9 \cdot 1 + (-2) \cdot 2 \\ (-2) \cdot 1 + 6 \cdot 2 \end{bmatrix} = \begin{bmatrix} 9 - 4 \\ -2 + 12 \end{bmatrix} = \begin{bmatrix} 5 \\ 10 \end{bmatrix}.
+	\]
+	Compare with \( 2 \mathbf{v}_1 = \begin{bmatrix} 2 \\ 4 \end{bmatrix} \):
+	\[
+	\begin{bmatrix} 5 \\ 10 \end{bmatrix} \neq \begin{bmatrix} 2 \\ 4 \end{bmatrix}.
+	\]
+	Since \( A \mathbf{v}_1 \neq 2 \mathbf{v}_1 \), option (b) is incorrect.
+	
+	% Step 3: Testing option (c)
+	\subsection*{Option (c): \( \begin{bmatrix} 6 & 2 \\ 2 & 9 \end{bmatrix} \)}
+	Let \( A = \begin{bmatrix} 6 & 2 \\ 2 & 9 \end{bmatrix} \).
+	
+	\textbf{For \( \mathbf{v}_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix} \), \( \lambda_1 = 2 \):}
+	\[
+	A \mathbf{v}_1 = \begin{bmatrix} 6 & 2 \\ 2 & 9 \end{bmatrix} \begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} 6 \cdot 1 + 2 \cdot 2 \\ 2 \cdot 1 + 9 \cdot 2 \end{bmatrix} = \begin{bmatrix} 6 + 4 \\ 2 + 18 \end{bmatrix} = \begin{bmatrix} 10 \\ 20 \end{bmatrix}.
+	\]
+	Compare with \( 2 \mathbf{v}_1 = \begin{bmatrix} 2 \\ 4 \end{bmatrix} \):
+	\[
+	\begin{bmatrix} 10 \\ 20 \end{bmatrix} \neq \begin{bmatrix} 2 \\ 4 \end{bmatrix}.
+	\]
+	Since \( A \mathbf{v}_1 \neq 2 \mathbf{v}_1 \), option (c) is incorrect.
+	
+	% Step 4: Testing option (d)
+	\subsection*{Option (d): \( \begin{bmatrix} \frac{6}{5} & \frac{2}{5} \\ \frac{2}{5} & \frac{9}{5} \end{bmatrix} \)}
+	Let \( A = \begin{bmatrix} \frac{6}{5} & \frac{2}{5} \\ \frac{2}{5} & \frac{9}{5} \end{bmatrix} \).
+	
+	\textbf{For \( \mathbf{v}_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix} \), \( \lambda_1 = 2 \):}
+	\[
+	A \mathbf{v}_1 = \begin{bmatrix} \frac{6}{5} & \frac{2}{5} \\ \frac{2}{5} & \frac{9}{5} \end{bmatrix} \begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} \frac{6}{5} \cdot 1 + \frac{2}{5} \cdot 2 \\ \frac{2}{5} \cdot 1 + \frac{9}{5} \cdot 2 \end{bmatrix} = \begin{bmatrix} \frac{6}{5} + \frac{4}{5} \\ \frac{2}{5} + \frac{18}{5} \end{bmatrix} = \begin{bmatrix} \frac{10}{5} \\ \frac{20}{5} \end{bmatrix} = \begin{bmatrix} 2 \\ 4 \end{bmatrix}.
+	\]
+	Compare with \( 2 \mathbf{v}_1 = \begin{bmatrix} 2 \\ 4 \end{bmatrix} \):
+	\[
+	\begin{bmatrix} 2 \\ 4 \end{bmatrix} = \begin{bmatrix} 2 \\ 4 \end{bmatrix}.
+	\]
+	This satisfies \( A \mathbf{v}_1 = 2 \mathbf{v}_1 \).
+	
+	\textbf{For \( \mathbf{v}_2 = \begin{bmatrix} -2 \\ 1 \end{bmatrix} \), \( \lambda_2 = 1 \):}
+	\[
+	A \mathbf{v}_2 = \begin{bmatrix} \frac{6}{5} & \frac{2}{5} \\ \frac{2}{5} & \frac{9}{5} \end{bmatrix} \begin{bmatrix} -2 \\ 1 \end{bmatrix} = \begin{bmatrix} \frac{6}{5} \cdot (-2) + \frac{2}{5} \cdot 1 \\ \frac{2}{5} \cdot (-2) + \frac{9}{5} \cdot 1 \end{bmatrix} = \begin{bmatrix} -\frac{12}{5} + \frac{2}{5} \\ -\frac{4}{5} + \frac{9}{5} \end{bmatrix} = \begin{bmatrix} -\frac{10}{5} \\ \frac{5}{5} \end{bmatrix} = \begin{bmatrix} -2 \\ 1 \end{bmatrix}.
+	\]
+	Compare with \( \lambda_2 \mathbf{v}_2 = 1 \cdot \begin{bmatrix} -2 \\ 1 \end{bmatrix} = \begin{bmatrix} -2 \\ 1 \end{bmatrix} \):
+	\[
+	\begin{bmatrix} -2 \\ 1 \end{bmatrix} = \begin{bmatrix} -2 \\ 1 \end{bmatrix}.
+	\]
+	This satisfies \( A \mathbf{v}_2 = \mathbf{v}_2 \).
+	
+	Since option (d) satisfies both eigenvalue-eigenvector pairs, it is a candidate for the correct answer.
+	
+	% Step 5: Justification
+	To ensure correctness, note that the eigenvectors \( \begin{bmatrix} 1 \\ 2 \end{bmatrix} \) and \( \begin{bmatrix} -2 \\ 1 \end{bmatrix} \) are linearly independent (their determinant is \( 1 \cdot 1 - 2 \cdot (-2) = 1 + 4 = 5 \neq 0 \)). A 2x2 matrix with two distinct eigenvalues and linearly independent eigenvectors is uniquely determined by its eigenvalue-eigenvector pairs. Since option (d) satisfies both conditions, it is the correct matrix.
+	
+	% Conclusion
+	The correct matrix is:
+	\[
+	\text{d) } \begin{bmatrix} \frac{6}{5} & \frac{2}{5} \\ \frac{2}{5} & \frac{9}{5} \end{bmatrix}.
+	\]
+	\textbf{Justification}: The matrix satisfies \( A \begin{bmatrix} 1 \\ 2 \end{bmatrix} = 2 \begin{bmatrix} 1 \\ 2 \end{bmatrix} \) and \( A \begin{bmatrix} -2 \\ 1 \end{bmatrix} = \begin{bmatrix} -2 \\ 1 \end{bmatrix} \), as verified by direct computation. The other options fail to satisfy at least one of the eigenvalue-eigenvector conditions.
+	
+\end{document}

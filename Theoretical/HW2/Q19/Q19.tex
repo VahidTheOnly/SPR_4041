@@ -1,0 +1,243 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Q19 - HW2: Pattern Recognition}
+\author{Vahid Maleki \\ Student ID: 40313004}
+\date{October 18, 2025}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Question 19}
+	
+	Suppose that using the \textbf{PCA (Principal Component Analysis)} algorithm, a random variable with the following \textbf{covariance matrix}
+	
+	\[
+	\Sigma =
+	\begin{bmatrix}
+		4 & 0 & 1 \\
+		0 & 2 & 0 \\
+		1 & 0 & 4
+	\end{bmatrix}
+	\]
+	
+	is projected onto a \textbf{two-dimensional space}.
+	
+	\subsection{(a)}
+	
+	On average, what \textbf{percentage of the total information (variance)} is \textbf{lost} after applying this transformation?
+	
+	\subsubsection{Solution}
+	
+	To determine the percentage of variance lost when projecting onto a two-dimensional space using PCA, we need to compute the eigenvalues of the covariance matrix $\Sigma$, calculate the total variance, and find the variance retained by the top two principal components.
+	
+	\textbf{Step 1: Find Eigenvalues of $\Sigma$}
+	
+	Given:
+	\[
+	\Sigma = \begin{bmatrix} 4 & 0 & 1 \\ 0 & 2 & 0 \\ 1 & 0 & 4 \end{bmatrix}
+	\]
+	
+	This is a symmetric matrix, so its eigenvalues are real. The middle row/column (index 2) is independent, so one eigenvalue is the diagonal entry:
+	
+	\[
+	\lambda_2 = 2
+	\]
+	
+	The remaining $2 \times 2$ block for rows/columns 1 and 3 is:
+	
+	\[
+	\begin{bmatrix} 4 & 1 \\ 1 & 4 \end{bmatrix}
+	\]
+	
+	Compute the eigenvalues of this block:
+	
+	\[
+	\det\left(\begin{bmatrix} 4 - \lambda & 1 \\ 1 & 4 - \lambda \end{bmatrix}\right) = (4 - \lambda)^2 - 1 = 0
+	\]
+	
+	\[
+	(4 - \lambda)^2 = 1 \Rightarrow 4 - \lambda = \pm 1 \Rightarrow \lambda = 4 \pm 1
+	\]
+	
+	\[
+	\lambda = 5, \quad \lambda = 3
+	\]
+	
+	Thus, the full set of eigenvalues is:
+	
+	\[
+	5, 3, 2
+	\]
+	
+	\textbf{Step 2: Total Variance}
+	
+	The total variance is the sum of all eigenvalues:
+	
+	\[
+	5 + 3 + 2 = 10
+	\]
+	
+	\textbf{Step 3: Variance Retained by Top 2 Components}
+	
+	Sort the eigenvalues in descending order: $5, 3, 2$. The top two eigenvalues are $5$ and $3$. The retained variance is:
+	
+	\[
+	5 + 3 = 8
+	\]
+	
+	\textbf{Step 4: Percentage of Variance Lost}
+	
+	The variance lost is:
+	
+	\[
+	10 - 8 = 2
+	\]
+	
+	The percentage of variance lost is:
+	
+	\[
+	\frac{2}{10} \times 100\% = 20\%
+	\]
+	
+	\textbf{Conclusion:}
+	
+	On average, \textbf{20\% of the total variance} is lost when projecting onto the top two principal components.
+	
+	\[
+	\boxed{20\%}
+	\]
+	
+	\subsection{(b)}
+	
+	If a sample
+	
+	\[
+	\mathbf{x} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+	\]
+	
+	from this random variable is projected into the two-dimensional space using the above PCA transformation and then \textbf{reconstructed} back into the original feature space, what is the \textbf{reconstruction error} (i.e., the \textbf{Euclidean distance} between the original and reconstructed vectors)?
+	
+	\subsubsection{Solution}
+	
+	To compute the reconstruction error, we project the sample $\mathbf{x} = [1, 1, 1]^T$ onto the two-dimensional space spanned by the top two eigenvectors, reconstruct it back to the original space, and calculate the Euclidean distance between the original and reconstructed vectors.
+	
+	\textbf{Step 1: Find Eigenvectors}
+	
+	From part (a), the eigenvalues are $5, 3, 2$. We need the eigenvectors corresponding to the top two eigenvalues ($5$ and $3$).
+	
+	- For $\lambda = 2$ (middle dimension):
+	
+	\[
+	\Sigma - 2I = \begin{bmatrix} 4-2 & 0 & 1 \\ 0 & 2-2 & 0 \\ 1 & 0 & 4-2 \end{bmatrix} = \begin{bmatrix} 2 & 0 & 1 \\ 0 & 0 & 0 \\ 1 & 0 & 2 \end{bmatrix}
+	\]
+	
+	The eigenvector satisfies:
+	
+	\[
+	\begin{bmatrix} 2 & 0 & 1 \\ 0 & 0 & 0 \\ 1 & 0 & 2 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
+	\]
+	
+	\[
+	2x_1 + x_3 = 0, \quad x_1 + 2x_3 = 0
+	\]
+	
+	From $2x_1 + x_3 = 0$, we get $x_3 = -2x_1$. The second equation gives $x_1 + 2(-2x_1) = x_1 - 4x_1 = -3x_1 = 0$, so $x_1 = 0$, and thus $x_3 = 0$. The middle row gives $0 \cdot x_2 = 0$, so $x_2$ is free. Set $x_2 = 1$:
+	
+	\[
+	\mathbf{u}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
+	\]
+	
+	- For the $2 \times 2$ block $\begin{bmatrix} 4 & 1 \\ 1 & 4 \end{bmatrix}$:
+	
+	For $\lambda = 5$:
+	
+	\[
+	\begin{bmatrix} 4-5 & 1 \\ 1 & 4-5 \end{bmatrix} = \begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix}
+	\]
+	
+	\[
+	-x_1 + x_3 = 0 \Rightarrow x_1 = x_3
+	\]
+	
+	Eigenvector: $[1, 0, 1]^T$ (since middle component is zero in the $3 \times 3$ context). Normalize:
+	
+	\[
+	\sqrt{1^2 + 0^2 + 1^2} = \sqrt{2}
+	\]
+	
+	\[
+	\mathbf{u}_1 = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}
+	\]
+	
+	For $\lambda = 3$:
+	
+	\[
+	\begin{bmatrix} 4-3 & 1 \\ 1 & 4-3 \end{bmatrix} = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
+	\]
+	
+	\[
+	x_1 + x_3 = 0 \Rightarrow x_1 = -x_3
+	\]
+	
+	Eigenvector: $[1, 0, -1]^T$. Normalize:
+	
+	\[
+	\sqrt{1^2 + 0^2 + (-1)^2} = \sqrt{2}
+	\]
+	
+	\[
+	\mathbf{u}_3 = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix}
+	\]
+	
+	The top two eigenvectors (for $\lambda = 5, 3$) are:
+	
+	\[
+	\mathbf{u}_1 = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}, \quad \mathbf{u}_3 = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 0 \\ -1 \end{bmatrix}
+	\]
+	
+	\textbf{Step 2: Project $\mathbf{x}$ onto Top 2 Components}
+	
+	Project $\mathbf{x} = [1, 1, 1]^T$ onto the subspace spanned by $\mathbf{u}_1$ and $\mathbf{u}_3$:
+	
+	\[
+	z_1 = \mathbf{u}_1^T \mathbf{x} = \frac{1}{\sqrt{2}} (1 \cdot 1 + 0 \cdot 1 + 1 \cdot 1) = \frac{1}{\sqrt{2}} (1 + 1) = \sqrt{2}
+	\]
+	
+	\[
+	z_3 = \mathbf{u}_3^T \mathbf{x} = \frac{1}{\sqrt{2}} (1 \cdot 1 + 0 \cdot 1 + (-1) \cdot 1) = \frac{1}{\sqrt{2}} (1 - 1) = 0
+	\]
+	
+	\textbf{Step 3: Reconstruct in Original Space}
+	
+	The reconstructed vector is:
+	
+	\[
+	\mathbf{x}' = z_1 \mathbf{u}_1 + z_3 \mathbf{u}_3 = \sqrt{2} \cdot \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} + 0 \cdot \mathbf{u}_3 = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}
+	\]
+	
+	\textbf{Step 4: Compute Reconstruction Error}
+	
+	The reconstruction error is the Euclidean distance:
+	
+	\[
+	\mathbf{x} - \mathbf{x}' = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} - \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
+	\]
+	
+	\[
+	\|\mathbf{x} - \mathbf{x}'\| = \sqrt{0^2 + 1^2 + 0^2} = \sqrt{1} = 1
+	\]
+	
+	\textbf{Conclusion:}
+	
+	The reconstruction error for the sample $\mathbf{x} = [1, 1, 1]^T$ is:
+	
+	\[
+	\boxed{1}
+	\]
+	
+\end{document}

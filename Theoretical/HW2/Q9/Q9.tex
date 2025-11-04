@@ -1,0 +1,244 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Q9 - HW2: Pattern Recognition}
+\author{Vahid Maleki \\ Student ID: 40313004}
+\date{October 18, 2025}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Question 9}
+	
+	Suppose in an $n$-dimensional space we have $N$ training samples belonging to $M$ different classes. Let $N_1$ samples belong to class $\omega_1$, $N_2$ samples belong to class $\omega_2$, and so on, up to $N_M$ samples belonging to class $\omega_M$, such that:
+	
+	\[
+	N = \sum_{j=1}^{M} N_j
+	\]
+	
+	The \textbf{overall mean} (centroid) of all training samples is defined as:
+	
+	\[
+	\mathbf{m} = \frac{1}{N} \sum_{j=1}^{N} \mathbf{x}_j
+	\]
+	
+	The \textbf{mean of class} $\omega_i$ is defined as:
+	
+	\[
+	\mathbf{m}_i = \frac{1}{N_i} \sum_{j=1}^{N_i} \mathbf{x}_{ij}
+	\]
+	
+	where $\mathbf{x}_{ij}$ denotes the $j$-th sample belonging to class $i$.
+	
+	\subsection{(a)}
+	
+	Express the overall mean $\mathbf{m}$ in terms of the class means $\mathbf{m}_i$.
+	
+	\subsubsection{Solution}
+	
+	The overall mean (centroid) of all training samples is:
+	$$
+	\mathbf{m} = \frac{1}{N} \sum_{j=1}^{N} \mathbf{x}_j
+	$$
+	But the samples are grouped by class, so we can rewrite the sum over all samples as a sum over classes:
+	$$
+	\mathbf{m} = \frac{1}{N} \sum_{i=1}^{M} \sum_{j=1}^{N_i} \mathbf{x}_{ij}
+	$$
+	Recall that the mean of class $\omega_i$ is:
+	$$
+	\mathbf{m}_i = \frac{1}{N_i} \sum_{j=1}^{N_i} \mathbf{x}_{ij}
+	$$
+	So, $\sum_{j=1}^{N_i} \mathbf{x}_{ij} = N_i \mathbf{m}_i$.
+	Plug this into the overall mean:
+	$$
+	\mathbf{m} = \frac{1}{N} \sum_{i=1}^{M} N_i \mathbf{m}_i
+	$$
+	
+	\subsection{(b)}
+	
+	Let $\Sigma_B$, $\Sigma_W$, and $\Sigma$ denote the \textbf{between-class}, \textbf{within-class}, and \textbf{total covariance matrices}, respectively, defined as follows:
+	
+	\[
+	\Sigma_B = \frac{1}{N} \sum_{i=1}^{M} \sum_{j=1}^{N_i} (\mathbf{m}_i - \mathbf{m})(\mathbf{m}_i - \mathbf{m})^T
+	\]
+	
+	\[
+	\Sigma_W = \frac{1}{N} \sum_{i=1}^{M} \sum_{j=1}^{N_i} (\mathbf{x}_{ij} - \mathbf{m}_i)(\mathbf{x}_{ij} - \mathbf{m}_i)^T
+	\]
+	
+	\[
+	\Sigma = \frac{1}{N} \sum_{i=1}^{M} \sum_{j=1}^{N_i} (\mathbf{x}_{ij} - \mathbf{m})(\mathbf{x}_{ij} - \mathbf{m})^T
+	\]
+	
+	Show that:
+	
+	\[
+	\Sigma = \Sigma_B + \Sigma_W
+	\]
+	
+	\subsubsection{Solution}
+	
+	Let's recall the definitions:
+	- \textbf{Between-class covariance:}
+	$$
+	\Sigma_B = \frac{1}{N} \sum_{i=1}^{M} \sum_{j=1}^{N_i} (\mathbf{m}_i - \mathbf{m})(\mathbf{m}_i - \mathbf{m})^T
+	$$
+	- \textbf{Within-class covariance:}
+	$$
+	\Sigma_W = \frac{1}{N} \sum_{i=1}^{M} \sum_{j=1}^{N_i} (\mathbf{x}_{ij} - \mathbf{m}_i)(\mathbf{x}_{ij} - \mathbf{m}_i)^T
+	$$
+	- \textbf{Total covariance:}
+	$$
+	\Sigma = \frac{1}{N} \sum_{i=1}^{M} \sum_{j=1}^{N_i} (\mathbf{x}_{ij} - \mathbf{m})(\mathbf{x}_{ij} - \mathbf{m})^T
+	$$
+	
+	Let's expand $\mathbf{x}_{ij} - \mathbf{m}$:
+	$$
+	\mathbf{x}_{ij} - \mathbf{m} = (\mathbf{x}_{ij} - \mathbf{m}_i) + (\mathbf{m}_i - \mathbf{m})
+	$$
+	So,
+	$$
+	(\mathbf{x}_{ij} - \mathbf{m})(\mathbf{x}_{ij} - \mathbf{m})^T = (\mathbf{x}_{ij} - \mathbf{m}_i)(\mathbf{x}_{ij} - \mathbf{m}_i)^T + (\mathbf{m}_i - \mathbf{m})(\mathbf{m}_i - \mathbf{m})^T + 
+	(\mathbf{x}_{ij} - \mathbf{m}_i)(\mathbf{m}_i - \mathbf{m})^T + (\mathbf{m}_i - \mathbf{m})(\mathbf{x}_{ij} - \mathbf{m}_i)^T
+	$$
+	
+	When you sum over all samples in class $i$, the cross terms (the last two terms) vanish because:
+	$$
+	\sum_{j=1}^{N_i} (\mathbf{x}_{ij} - \mathbf{m}_i) = \mathbf{0}
+	$$
+	So, summing over all classes and samples:
+	$$
+	\Sigma = \Sigma_W + \Sigma_B
+	$$
+	
+	\subsection{(c)}
+	
+	Define a new variable using an $n$-dimensional vector $\mathbf{a}$ as:
+	
+	\[
+	Z_i = \mathbf{a}^T(\mathbf{x}_i - \mathbf{m})
+	\]
+	
+	Compute the \textbf{variance} of $Z_i$ and express it in terms of $\Sigma$.
+	
+	\subsubsection{Solution}
+	
+	Define:
+	$$
+	Z_i = \mathbf{a}^T(\mathbf{x}_i - \mathbf{m})
+	$$
+	The variance of $Z_i$ is:
+	$$
+	\text{Var}(Z_i) = E\left[ (Z_i)^2 \right] = E\left[ (\mathbf{a}^T(\mathbf{x}_i - \mathbf{m}))^2 \right]
+	$$
+	This can be rewritten as:
+	$$
+	\text{Var}(Z_i) = \mathbf{a}^T E\left[ (\mathbf{x}_i - \mathbf{m})(\mathbf{x}_i - \mathbf{m})^T \right] \mathbf{a} = \mathbf{a}^T \Sigma \mathbf{a}
+	$$
+	
+	\subsection{(d)}
+	
+	We wish to find a vector $\mathbf{a}$ that maximizes the following quantity:
+	
+	\[
+	\frac{\mathbf{a}^T \Sigma_B \mathbf{a}}{\mathbf{a}^T \Sigma_W \mathbf{a}}
+	\]
+	
+	Explain what maximizing this quantity means and why it is useful in classification.
+	
+	\subsubsection{Solution}
+	
+	We want to find $\mathbf{a}$ that maximizes:
+	$$
+	J(\mathbf{a}) = \frac{\mathbf{a}^T \Sigma_B \mathbf{a}}{\mathbf{a}^T \Sigma_W \mathbf{a}}
+	$$
+	\textbf{Interpretation:}
+	- The numerator measures how far apart the class means are (projected onto $\mathbf{a}$).
+	- The denominator measures the spread of samples within each class (projected onto $\mathbf{a}$).
+	
+	\textbf{Why is this useful?}
+	Maximizing this ratio finds a direction $\mathbf{a}$ that best separates the classes: it makes the projected class means as far apart as possible, while keeping the projected within-class scatter as small as possible. This is the principle behind \textbf{Fisher's Linear Discriminant Analysis (LDA)}.
+	
+	\subsection{(e)}
+	
+	Show that maximizing
+	
+	\[
+	\frac{\mathbf{a}^T \Sigma_B \mathbf{a}}{\mathbf{a}^T \Sigma_W \mathbf{a}}
+	\]
+	
+	is equivalent to maximizing
+	
+	\[
+	\frac{\mathbf{a}^T \Sigma_B \mathbf{a}}{\mathbf{a}^T \Sigma \mathbf{a}}
+	\]
+	
+	\subsubsection{Solution}
+	
+	Recall from part (b):
+	$$
+	\Sigma = \Sigma_B + \Sigma_W
+	$$
+	So,
+	$$
+	\mathbf{a}^T \Sigma \mathbf{a} = \mathbf{a}^T \Sigma_B \mathbf{a} + \mathbf{a}^T \Sigma_W \mathbf{a}
+	$$
+	If you maximize:
+	$$
+	\frac{\mathbf{a}^T \Sigma_B \mathbf{a}}{\mathbf{a}^T \Sigma_W \mathbf{a}}
+	$$
+	Or:
+	$$
+	\frac{\mathbf{a}^T \Sigma_B \mathbf{a}}{\mathbf{a}^T \Sigma \mathbf{a}}
+	$$
+	The maximizing $\mathbf{a}$ will be the same, because maximizing one is equivalent to maximizing the other (since $\mathbf{a}^T \Sigma_B \mathbf{a}$ is always less than or equal to $\mathbf{a}^T \Sigma \mathbf{a}$).
+	
+	\subsection{(f)}
+	
+	Maximizing
+	
+	\[
+	\frac{\mathbf{a}^T \Sigma_B \mathbf{a}}{\mathbf{a}^T \Sigma \mathbf{a}}
+	\]
+	
+	is equivalent to maximizing $\mathbf{a}^T \Sigma_B \mathbf{a}$ subject to the constraint $\mathbf{a}^T \Sigma \mathbf{a} = 1$.
+	Using the \textbf{Lagrange multiplier method}, maximize the above ratio under this constraint, and derive the relationship between the vector $\mathbf{a}$ and the matrices $\Sigma_B$ and $\Sigma$.
+	
+	What conclusion can be drawn from this result?
+	
+	\subsubsection{Solution}
+	
+	We want to maximize:
+	$$
+	\mathbf{a}^T \Sigma_B \mathbf{a}
+	$$
+	subject to:
+	$$
+	\mathbf{a}^T \Sigma \mathbf{a} = 1
+	$$
+	Set up the Lagrangian:
+	$$
+	L(\mathbf{a}, \lambda) = \mathbf{a}^T \Sigma_B \mathbf{a} - \lambda (\mathbf{a}^T \Sigma \mathbf{a} - 1)
+	$$
+	Take the derivative with respect to $\mathbf{a}$ and set to zero:
+	$$
+	\frac{\partial L}{\partial \mathbf{a}} = 2 \Sigma_B \mathbf{a} - 2 \lambda \Sigma \mathbf{a} = 0
+	$$
+	$$
+	\Sigma_B \mathbf{a} = \lambda \Sigma \mathbf{a}
+	$$
+	This is a \textbf{generalized eigenvalue problem}:
+	$$
+	\Sigma_B \mathbf{a} = \lambda \Sigma \mathbf{a}
+	$$
+	The solution $\mathbf{a}$ is the eigenvector of $\Sigma^{-1} \Sigma_B$ corresponding to the largest eigenvalue $\lambda$.
+	
+	\textbf{Conclusion:}
+	- The optimal direction $\mathbf{a}$ for class separation is the eigenvector of $\Sigma^{-1} \Sigma_B$ with the largest eigenvalue.
+	- This is the basis of Fisher's Linear Discriminant Analysis (LDA): it finds the direction that best separates classes by maximizing the ratio of between-class to total (or within-class) variance.
+	
+\end{document}

@@ -1,0 +1,86 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\begin{document}
+	
+	\begin{center}
+		\textbf{\large Pattern Recognition -- Homework 3}\\
+		\vspace{0.2cm}
+		Vahid Maleki \quad Student ID: 40313004
+	\end{center}
+	
+	\vspace{1cm}
+	
+	\section*{Question 17}
+	
+	\subsection*{Dataset}
+	
+	We are given five movies with three binary features and their class labels:
+	
+	\begin{center}
+		\begin{tabular}{cccc}
+			\toprule
+			great & fine & terrible & class \\
+			\midrule
+			1     & 0    & 0        & + \\
+			0     & 1    & 1        & – \\
+			0     & 1    & 1        & – \\
+			0     & 0    & 0        & + \\
+			1     & 0    & 1        & – \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	A new movie is observed with only the feature \texttt{terrible = 1}. We use the Naïve Bayes classifier to predict its class.
+	
+	\subsection*{Naïve Bayes Decision Rule}
+	
+	We compute:
+	\[
+	\text{Predicted class} = \arg\max_{c \in \{+, -\}} P(c) \cdot P(\text{terrible}=1 \mid c)
+	\]
+	
+	\subsection*{Step 1: Prior Probabilities}
+	
+	There are 2 samples in class $+$ and 3 in class $-$.
+	
+	\[
+	P(+) = \frac{2}{5}, \quad P(-) = \frac{3}{5}
+	\]
+	
+	\subsection*{Step 2: Class-Conditional Probabilities}
+	
+	For class $+$ (2 samples):
+	
+	- terrible = 1 appears in 0 of them.
+	
+	\[
+	P(\text{terrible}=1 \mid +) = \frac{0}{2} = 0
+	\]
+	
+	For class $-$ (3 samples):
+	
+	- terrible = 1 appears in all 3.
+	
+	\[
+	P(\text{terrible}=1 \mid -) = \frac{3}{3} = 1
+	\]
+	
+	\subsection*{Step 3: Posterior Scores (Unnormalized)}
+	
+	\[
+	\text{Score}(+) = P(+) \cdot P(\text{terrible}=1 \mid +) = \frac{2}{5} \cdot 0 = 0
+	\]
+	
+	\[
+	\text{Score}(-) = P(-) \cdot P(\text{terrible}=1 \mid -) = \frac{3}{5} \cdot 1 = \frac{3}{5}
+	\]
+	
+	Since $\frac{3}{5} > 0$, the Naïve Bayes classifier assigns the new movie to class \textbf{–}.
+	
+\end{document}
