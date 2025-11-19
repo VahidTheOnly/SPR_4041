@@ -1,0 +1,83 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xepersian}
+\settextfont{Amiri}
+\setlatintextfont{Times New Roman}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{xcolor}
+\geometry{margin=2.5cm}
+
+\title{تکلیف پنجم درس شناسایی الگو}
+\author{وحید ملکی \\ شماره دانشجویی: 40313004}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{سؤال ۱۳}
+	
+	کدام یک از گزینه‌های زیر درباره‌ی \textbf{تخمین پارزن} صحیح هستند؟
+	
+	\begin{enumerate}[label=\alph*)]
+		\item با انتخاب بهینه‌ی پارامتر هموارسازی، طبقه‌بند پارزن برای مجموعه‌های آموزشی بسیار بزرگ، طبقه‌بند بیز را تقریب می‌زند.
+		\item تخمین‌گر پارزن یک تخمین \textbf{بی‌اِریب} (بدون بایاس) از توزیع ارائه می‌دهد.
+		\item معمولاً از تخمین‌گر پارزن برای ساخت \textbf{طبقه‌بندهای ناپارامتری} و از تخمین‌گر \textbf{kNN} برای تخمین تابع چگالی احتمال استفاده می‌شود.
+		\item هرچقدر تعداد نمونه‌ها بیشتر شود، در تخمین توزیع به روش پارزن از کرنل با \textbf{هموارسازی کمتر} استفاده می‌گردد.
+	\end{enumerate}
+	
+	\subsection*{بررسی گام به گام}
+	
+	\subsubsection*{الف) \textcolor{green}{\checkmark} صحیح}
+	\begin{itemize}
+		\item با افزایش تعداد نمونه‌ها (\(n \to \infty\)) و انتخاب بهینه‌ی پهنای پنجره (\(h \to 0\) به صورت کنترل‌شده)،  
+		تخمین پارزن به توزیع واقعی همگرا می‌شود.
+		\item در این حالت، \textbf{طبقه‌بند پارزن} عملکردی نزدیک به \textbf{طبقه‌بند بیز بهینه} خواهد داشت.
+	\end{itemize}
+	
+	\subsubsection*{ب) \textcolor{red}{$\times$} نادرست}
+	\begin{itemize}
+		\item تخمین پارزن \textbf{بایاس دارد} (مگر در حالت حدی \(n \to \infty\) و \(h \to 0\)).
+		\item بایاس به دلیل \textbf{هموارسازی} ایجاد می‌شود و به طور کلی \textbf{بی‌اِریب نیست}.
+	\end{itemize}
+	
+	\subsubsection*{ج) \textcolor{red}{$\times$} نادرست}
+	\begin{itemize}
+		\item \textbf{تخمین پارزن} $\to$ برای \textbf{تخمین چگالی احتمال} (ناپارامتری)
+		\item \textbf{kNN} $\to$ معمولاً برای \textbf{طبقه‌بندی ناپارامتری}
+		\item $\Rightarrow$ \textbf{معکوس بیان شده} $\to$ گزینه نادرست
+	\end{itemize}
+	
+	\subsubsection*{د) \textcolor{green}{\checkmark} صحیح}
+	\begin{itemize}
+		\item با افزایش تعداد نمونه‌ها، اطلاعات بیشتری داریم.
+		\item می‌توان \(h\) (پارامتر هموارسازی) را \textbf{کوچک‌تر} کرد.
+		\item نتیجه: تخمین دقیق‌تر با \textbf{هموارسازی کمتر}
+	\end{itemize}
+	
+	---
+	
+	\subsection*{خلاصه پاسخ}
+	
+	\begin{center}
+		\begin{tabular}{|c|l|c|}
+			\hline
+			\textbf{گزینه} & \textbf{توضیح مختصر} & \textbf{وضعیت} \\
+			\hline
+			الف & تقریب بیز با \(n \uparrow\), \(h\) بهینه & \textcolor{green}{\checkmark} \\
+			\hline
+			ب & تخمین پارزن بایاس دارد & \textcolor{red}{$\times$} \\
+			\hline
+			ج & پارزن برای چگالی، kNN برای طبقه‌بندی & \textcolor{red}{$\times$} \\
+			\hline
+			د & \(n \uparrow \Rightarrow h \downarrow\) & \textcolor{green}{\checkmark} \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+\end{document}

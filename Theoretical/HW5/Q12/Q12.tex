@@ -1,0 +1,137 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xepersian}
+\settextfont{Amiri}
+\setlatintextfont{Times New Roman}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{array}
+\geometry{margin=2.5cm}
+
+\title{تکلیف پنجم درس شناسایی الگو}
+\author{وحید ملکی \\ شماره دانشجویی: 40313004}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{سؤال ۱۲}
+	
+	\subsection*{داده‌ها}
+	مجموعه نمونه‌ها (\(n = 13\)):
+	\[
+	x = \{1,\ 1.5,\ 1.75,\ 2,\ 2.5,\ 2.75,\ 3,\ 5,\ 6,\ 6.25,\ 6.5,\ 7,\ 7.5\}
+	\]
+	
+	هدف: تخمین چگالی \(p(x)\) در نقاط:
+	\[
+	x \in \{0,\ 1,\ 3,\ 5,\ 7,\ 9\}
+	\]
+	با استفاده از \textbf{پنجره پارزن}، پهنای پنجره \(h = 1\) و \textbf{کرنل یکنواخت (مستطیلی)}:
+	\[
+	\varphi(u) = 
+	\begin{cases}
+		1 & |u| < \dfrac{1}{2} \\
+		0 & \text{در غیر این صورت}
+	\end{cases}
+	\]
+	
+	\subsection*{فرمول تخمین‌گر پارزن}
+	\[
+	p(x) = \frac{1}{n h} \sum_{i=1}^{n} \varphi\left( \frac{x - x_i}{h} \right)
+	\]
+	با \(h=1\):
+	\[
+	p(x) = \frac{1}{13 \times 1} \sum_{i=1}^{13} \varphi(|x - x_i| < 0.5)
+	\]
+	یعنی فقط نمونه‌هایی که در فاصله کمتر از \(0.5\) از \(x\) باشند، در محاسبه شرکت می‌کنند.
+	
+	---
+	
+	\subsection*{محاسبه گام به گام}
+	
+	\subsubsection*{۱. \(p(0)\)}
+	بازه: \([0 - 0.5, 0 + 0.5) = [-0.5, 0.5)\)  
+	نمونه‌ها در این بازه: \textbf{هیچ}  
+	\[
+	p(0) = \frac{0}{13} = \boxed{0}
+	\]
+	
+	\subsubsection*{۲. \(p(1)\)}
+	بازه: \([0.5, 1.5)\)  
+	نمونه‌ها: \(1,\ 1.5\) → **۲ نمونه**  
+	\[
+	p(1) = \frac{2}{13} = \boxed{\dfrac{2}{13}}
+	\]
+	
+	\subsubsection*{۳. \(p(3)\)}
+	بازه: \([2.5, 3.5)\)  
+	نمونه‌ها: \(2.5,\ 2.75,\ 3\) → **۳ نمونه**  
+	\[
+	p(3) = \frac{3}{13} = \boxed{\dfrac{3}{13}}
+	\]
+	
+	\subsubsection*{۴. \(p(5)\)}
+	بازه: \([4.5, 5.5)\)  
+	نمونه‌ها: \(5\) → **۱ نمونه**  
+	\[
+	p(5) = \frac{1}{13} = \boxed{\dfrac{1}{13}}
+	\]
+	
+	\subsubsection*{۵. \(p(7)\)}
+	بازه: \([6.5, 7.5)\)  
+	نمونه‌ها: \(6.5,\ 7,\ 7.5\) → **۳ نمونه**  
+	\[
+	p(7) = \frac{3}{13} = \boxed{\dfrac{3}{13}}
+	\]
+	
+	\subsubsection*{۶. \(p(9)\)}
+	بازه: \([8.5, 9.5)\)  
+	نمونه‌ها: \textbf{هیچ}  
+	\[
+	p(9) = \frac{0}{13} = \boxed{0}
+	\]
+	
+	---
+	
+	\subsection*{جدول خلاصه}
+	
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			\textbf{نقطه \(x\)} & \textbf{بازه پنجره} & \textbf{نمونه‌های داخل} & \textbf{\(p(x)\)} \\
+			\hline
+			0 & $[-0.5, 0.5)$ & هیچ & $\boxed{0}$ \\
+			\hline
+			1 & $[0.5, 1.5)$ & $1,\ 1.5$ & $\boxed{\dfrac{2}{13}}$ \\
+			\hline
+			3 & $[2.5, 3.5)$ & $2.5,\ 2.75,\ 3$ & $\boxed{\dfrac{3}{13}}$ \\
+			\hline
+			5 & $[4.5, 5.5)$ & $5$ & $\boxed{\dfrac{1}{13}}$ \\
+			\hline
+			7 & $[6.5, 7.5)$ & $6.5,\ 7,\ 7.5$ & $\boxed{\dfrac{3}{13}}$ \\
+			\hline
+			9 & $[8.5, 9.5)$ & هیچ & $\boxed{0}$ \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\subsection*{پاسخ نهایی}
+	\[
+	\boxed{
+		\begin{aligned}
+			&p(0) = 0, \\
+			&p(1) = \dfrac{2}{13}, \\
+			&p(3) = \dfrac{3}{13}, \\
+			&p(5) = \dfrac{1}{13}, \\
+			&p(7) = \dfrac{3}{13}, \\
+			&p(9) = 0
+		\end{aligned}
+	}
+	\]
+	
+\end{document}

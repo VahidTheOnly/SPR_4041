@@ -1,0 +1,112 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xepersian}
+\settextfont{Amiri}
+\setlatintextfont{Times New Roman}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\geometry{margin=2.5cm}
+
+\title{تکلیف پنجم درس شناسایی الگو}
+\author{وحید ملکی \\ شماره دانشجویی: 40313004}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{سؤال ۱۱}
+	
+	فرض کنید نمونه‌های زیر مشاهده شده‌اند:  
+	\textbf{کلاس اول (\(\omega_1\))}: \(-1, -2, 3, 3, 7, 7\) \quad (\(n_1 = 6\))  
+	\textbf{کلاس دوم (\(\omega_2\))}: \(-3, -2, 3, 5, 8\) \quad (\(n_2 = 5\))
+	
+	از \textbf{تخمین‌گر پارزن} با \textbf{کرنل صفر-یک} و پهنای پنجره \(h = 2\) استفاده شده است.  
+	هدف: نشان دادن اینکه نمونه‌ی جدید در نقطه \(x = 4\) با استفاده از \textbf{کلاسیفایر بیشینهٔ شباهت (Maximum Likelihood)} در \textbf{کلاس اول} قرار می‌گیرد.
+	
+	\subsection*{تعریف کرنل}
+	کرنل داده‌شده:
+	\[
+	\varphi(x) = 
+	\begin{cases}
+		\dfrac{a}{2} & |x| < a \\
+		0 & \text{در غیر این صورت}
+	\end{cases}
+	\]
+	با \(a = 2\):
+	\[
+	\varphi(x) = 
+	\begin{cases}
+		1 & |x| < 2 \\
+		0 & \text{در غیر این صورت}
+	\end{cases}
+	\]
+	
+	\subsection*{فرمول تخمین‌گر پارزن}
+	\[
+	p(x \mid \omega_j) = \frac{1}{n_j h} \sum_{i=1}^{n_j} \varphi\left( \frac{x - x_i}{h} \right)
+	\]
+	
+	\subsection*{محاسبه \(p(x=4 \mid \omega_1)\)}
+	\[
+	p(4 \mid \omega_1) = \frac{1}{6 \times 2} \sum_{i=1}^{6} \varphi\left( \frac{4 - x_i}{2} \right) = \frac{1}{12} \sum_{i=1}^{6} \varphi\left( \frac{4 - x_i}{2} \right)
+	\]
+	
+	شرط فعال شدن کرنل:
+	\[
+	\left| \frac{4 - x_i}{2} \right| < 2 \quad \Rightarrow \quad |4 - x_i| < 4 \quad \Rightarrow \quad 0 < x_i < 8
+	\]
+	
+	نمونه‌های کلاس اول در بازه \((0, 8)\):  
+	\(x_i = 3, 3, 7, 7\) → **۴ نمونه**
+	
+	\[
+	\sum = 4 \quad \Rightarrow \quad p(4 \mid \omega_1) = \frac{1}{12} \times 4 = \frac{4}{12} = \boxed{\dfrac{1}{3}}
+	\]
+	
+	\subsection*{محاسبه \(p(x=4 \mid \omega_2)\)}
+	\[
+	p(4 \mid \omega_2) = \frac{1}{5 \times 2} \sum_{i=1}^{5} \varphi\left( \frac{4 - x_i}{2} \right) = \frac{1}{10} \sum_{i=1}^{5} \varphi\left( \frac{4 - x_i}{2} \right)
+	\]
+	
+	شرط همان است: \(0 < x_i < 8\)  
+	نمونه‌های کلاس دوم در این بازه:  
+	\(x_i = 3, 5\) → **۲ نمونه**
+	
+	\[
+	\sum = 2 \quad \Rightarrow \quad p(4 \mid \omega_2) = \frac{1}{10} \times 2 = \frac{2}{10} = \boxed{\dfrac{1}{5}}
+	\]
+	
+	\subsection*{تصمیم‌گیری با کلاسیفایر بیشینهٔ شباهت}
+	\[
+	\hat{\omega} = \arg\max_{\omega_j} p(x \mid \omega_j)
+	\]
+	
+	مقایسه:
+	\[
+	p(4 \mid \omega_1) = \frac{1}{3} \approx 0.333, \quad p(4 \mid \omega_2) = \frac{1}{5} = 0.2
+	\]
+	
+	\[
+	\boxed{\dfrac{1}{3} > \dfrac{1}{5}}
+	\]
+	
+	بنابراین، نمونه‌ی جدید در نقطه \(x = 4\) به \textbf{کلاس اول} اختصاص می‌یابد.
+	
+	\begin{center}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			\textbf{کلاس} & \textbf{تعداد نمونه در پنجره} & \(p(4 \mid \omega_j)\) \\
+			\hline
+			\(\omega_1\) & ۴ & \(\dfrac{1}{3}\) \\
+			\(\omega_2\) & ۲ & \(\dfrac{1}{5}\) \\
+			\hline
+			\textbf{تصمیم نهایی} & \multicolumn{2}{c|}{\textbf{کلاس ۱}} \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+\end{document}
