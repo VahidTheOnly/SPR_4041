@@ -1,0 +1,104 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xepersian}
+\settextfont{Amiri}
+\setlatintextfont{Times New Roman}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\title{تکلیف چهارم درس شناسایی الگو}
+\author{وحید ملکی \\ شماره دانشجویی: 40313004}
+\date{7 نوامبر 2025}
+\begin{document}
+	\maketitle
+	
+	% ----------------------------------------------------------------
+	\section{سوال 17}
+	% ----------------------------------------------------------------
+	
+	متغیر تصادفی $ x $ از توزیعی با تابع چگالی احتمال زیر پیروی می‌کند:
+	$$ 
+	p(x; \theta) = \frac{\theta^3}{2} x^2 e^{-\theta x},\quad x>0,\ \theta>0
+	$$
+	فرض کنید $ N $ نمونه‌ی مستقل $ x_1,x_2,\dots,x_N $ از این توزیع در اختیار است.  
+	مطلوب است تخمین بیشینه‌ی درست‌نمایی (Maximum Likelihood Estimation) برای پارامتر $ \theta $ محاسبه شود.
+	
+	\subsection{جواب}
+	
+	\subsubsection{۱. تشکیل تابع درست‌نمایی (Likelihood Function)}
+	
+	تابع درست‌نمایی $ L(\theta) $ برابر با حاصل‌ضرب تابع چگالی احتمال برای هر یک از $ N $ نمونه‌ی مستقل است:
+	$$ 
+	L(\theta)=P(x_1,\dots,x_N|\theta)=\prod_{i=1}^N p(x_i;\theta)
+	$$
+	با جایگذاری $ p(x;\theta) $ داده‌شده:
+	$$ 
+	L(\theta)=\prod_{i=1}^N \left(\frac{\theta^3}{2}\,x_i^2\,e^{-\theta x_i}\right)
+	$$
+	ساده‌سازی عبارت:
+	$$ 
+	L(\theta)=\left(\frac{\theta^3}{2}\right)^N
+	\Bigl(\prod_{i=1}^N x_i^2\Bigr)
+	\Bigl(\prod_{i=1}^N e^{-\theta x_i}\Bigr)
+	=\frac{\theta^{3N}}{2^N}\,
+	\Bigl(\prod_{i=1}^N x_i^2\Bigr)\,
+	e^{-\theta\sum_{i=1}^N x_i}
+	$$
+	
+	\subsubsection{۲. تشکیل تابع لگاریتم درست‌نمایی (Log-Likelihood)}
+	
+	$$ 
+	\mathcal{L}(\theta)=\ln L(\theta)
+	=\ln\!\left[\frac{\theta^{3N}}{2^N}
+	\Bigl(\prod_{i=1}^N x_i^2\Bigr)
+	e^{-\theta\sum_{i=1}^N x_i}\right]
+	$$
+	با استفاده از خواص لگاریتم:
+	$$ 
+	\mathcal{L}(\theta)
+	=\ln\!\left(\frac{\theta^{3N}}{2^N}\right)
+	+\ln\!\left(\prod_{i=1}^N x_i^2\right)
+	+\ln\!\left(e^{-\theta\sum_{i=1}^N x_i}\right)
+	$$
+	$$ 
+	=3N\ln\theta-N\ln 2
+	+\sum_{i=1}^N\ln(x_i^2)
+	-\theta\sum_{i=1}^N x_i
+	=3N\ln\theta-N\ln 2
+	+2\sum_{i=1}^N\ln x_i
+	-\theta\sum_{i=1}^N x_i
+	$$
+	
+	\subsubsection{۳. مشتق‌گیری و یافتن نقطه اکسترمم}
+	
+	مشتق نسبت به $ \theta $:
+	$$ 
+	\frac{d\mathcal{L}}{d\theta}
+	=\frac{d}{d\theta}\!\left[
+	3N\ln\theta-N\ln 2+2\sum_{i=1}^N\ln x_i
+	-\theta\sum_{i=1}^N x_i
+	\right]
+	=\frac{3N}{\theta}-\sum_{i=1}^N x_i
+	$$
+	قرار دادن مشتق برابر صفر:
+	$$ 
+	\frac{3N}{\theta}-\sum_{i=1}^N x_i=0
+	\qquad\Longrightarrow\qquad
+	\frac{3N}{\theta}=\sum_{i=1}^N x_i
+	$$
+	
+	\subsubsection{۴. محاسبه تخمین $ \hat{\theta}_{MLE} $}
+	
+	$$ 
+	\theta=\frac{3N}{\sum_{i=1}^N x_i}
+	\qquad\Longrightarrow\qquad
+	\hat{\theta}_{MLE}=\frac{3N}{\sum_{i=1}^N x_i}
+	$$
+	اگر میانگین نمونه‌ها را $ \bar{x}=\frac{1}{N}\sum_{i=1}^N x_i $ تعریف کنیم، می‌توان نوشت:
+	$$ 
+	\hat{\theta}_{MLE}=\frac{3}{\bar{x}}
+	$$
+	
+\end{document}

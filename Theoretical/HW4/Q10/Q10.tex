@@ -1,0 +1,76 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xepersian}
+\settextfont{Amiri}
+\setlatintextfont{Times New Roman}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\title{تکلیف چهارم درس شناسایی الگو}
+\author{وحید ملکی \\ شماره دانشجویی: 40313004}
+\date{7 نوامبر 2025}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{سوال 10}
+	
+	در یک فضای یک‌بعدی، تابع چگالی احتمال به صورت مجموع وزن‌دار دو توزیع نرمال با واریانس واحد و میانگین‌های $\mu_1$ و $\mu_2$ تعریف شده است:
+	\[
+	p(x) = P_1 p(x|\mu_1) + P_2 p(x|\mu_2)
+	\]
+	که در آن $P_1$ و $P_2$ وزن‌های معلوم هستند.
+	
+	\subsection{الف) تعریف تابع درست‌نمایی}
+	
+	فرض کنید مجموعه نمونه‌ها $X = \{x_1, x_2, \ldots, x_N\}$ از توزیع $p(x)$ به دست آمده. تابع چگالی برای هر توزیع نرمال با واریانس 1 این‌طوریه:
+	\[
+	p(x|\mu) = \frac{1}{\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2}}
+	\]
+	پس تابع درست‌نمایی $L(\mu_1, \mu_2 | X)$ برابر حاصل‌ضرب احتمال هر نمونه‌ست (چون نمونه‌ها مستقل هستن):
+	\[
+	L(\mu_1, \mu_2 | X) = \prod_{i=1}^{N} \left[ P_1 p(x_i|\mu_1) + P_2 p(x_i|\mu_2) \right]
+	\]
+	برای راحت‌تر مشتق گرفتن، لگاریتمش رو می‌گیریم:
+	\[
+	\mathcal{L}(\mu_1, \mu_2 | X) = \sum_{i=1}^{N} \ln \left( P_1 \frac{1}{\sqrt{2\pi}} e^{-\frac{(x_i-\mu_1)^2}{2}} + P_2 \frac{1}{\sqrt{2\pi}} e^{-\frac{(x_i-\mu_2)^2}{2}} \right)
+	\]
+	
+	\subsection{ب) بیشینه‌سازی تابع درست‌نمایی}
+	
+	برای پیدا کردن $\hat{\mu}_1$ و $\hat{\mu}_2$، مشتق جزئی $\mathcal{L}$ رو نسبت به هر $\mu$ می‌گیریم و برابر صفر می‌ذاریم. اول نسبت به $\mu_1$:
+	
+	\[
+	\frac{\partial \mathcal{L}}{\partial \mu_1} = \sum_{i=1}^{N} \frac{1}{P_1 p(x_i|\mu_1) + P_2 p(x_i|\mu_2)} \cdot \frac{\partial}{\partial \mu_1} (P_1 p(x_i|\mu_1))
+	\]
+	
+	مشتق $p(x_i|\mu_1)$ نسبت به $\mu_1$ اینه:
+	\[
+	\frac{\partial p(x_i|\mu_1)}{\partial \mu_1} = p(x_i|\mu_1) (x_i - \mu_1)
+	\]
+	پس:
+	\[
+	\frac{\partial \mathcal{L}}{\partial \mu_1} = \sum_{i=1}^{N} \frac{P_1 p(x_i|\mu_1)}{P_1 p(x_i|\mu_1) + P_2 p(x_i|\mu_2)} (x_i - \mu_1) = 0
+	\]
+	
+	عبارت کسری رو $\gamma_1(x_i)$ می‌نامیم (مسئولیت نمونه برای توزیع اول):
+	\[
+	\gamma_1(x_i) = \frac{P_1 p(x_i|\mu_1)}{P_1 p(x_i|\mu_1) + P_2 p(x_i|\mu_2)}
+	\]
+	پس:
+	\[
+	\sum_{i=1}^{N} \gamma_1(x_i) x_i = \hat{\mu}_1 \sum_{i=1}^{N} \gamma_1(x_i) \implies \hat{\mu}_1 = \frac{\sum_{i=1}^{N} \gamma_1(x_i) x_i}{\sum_{i=1}^{N} \gamma_1(x_i)}
+	\]
+	
+	به طور مشابه برای $\mu_2$، با $\gamma_2(x_i) = \frac{P_2 p(x_i|\mu_2)}{P_1 p(x_i|\mu_1) + P_2 p(x_i|\mu_2)}$:
+	\[
+	\hat{\mu}_2 = \frac{\sum_{i=1}^{N} \gamma_2(x_i) x_i}{\sum_{i=1}^{N} \gamma_2(x_i)}
+	\]
+	
+	این معادلات بسته نیستن چون $\gamma$ها به $\mu$ها وابسته‌ان. برای حل، از الگوریتم EM استفاده می‌شه: اول حدس اولیه بزن، $\gamma$ها رو حساب کن (گام E)، بعد $\mu$ها رو آپدیت کن (گام M)، و تکرار کن تا همگرا بشه.
+	
+\end{document}

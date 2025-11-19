@@ -1,0 +1,76 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xepersian}
+\settextfont{Amiri}
+\setlatintextfont{Times New Roman}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\title{تکلیف چهارم درس شناسایی الگو}
+\author{وحید ملکی \\ شماره دانشجویی: 40313004}
+\date{7 نوامبر 2025}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{سوال 15}
+	
+	یک مسئله دسته‌بندی دوکلاسه در فضای یک‌بعدی داریم. توابع چگالی احتمال برای هر کلاس این‌طوریه:
+	
+	\[
+	p(x|c_1) = 
+	\begin{cases}
+		0 & x < 0 \\
+		\theta_1 e^{-\theta_1 x} & x \ge 0
+	\end{cases}
+	\]
+	
+	\[
+	p(x|c_2) = 
+	\begin{cases}
+		0 & x < 0 \\
+		\theta_2 e^{-\theta_2 x} & x \ge 0
+	\end{cases}
+	\]
+	
+	داده‌های آموزشی: کلاس ۱: $D_1 = \{3, 5\}$، کلاس ۲: $D_2 = \{6, 9, 12\}$.
+	
+	\subsection{الف) برآورد $\theta_1$ و $\theta_2$ با MLE}
+	
+	برای توزیع نمایی $p(x|\theta) = \theta e^{-\theta x}$، تابع لگاریتم درست‌نمایی برای $N$ نمونه $\mathcal{L}(\theta) = N \ln \theta - \theta \sum x_i$ هست.
+	
+	مشتق: $\frac{\partial \mathcal{L}}{\partial \theta} = \frac{N}{\theta} - \sum x_i = 0 \implies \hat{\theta} = \frac{N}{\sum x_i} = \frac{1}{\bar{x}}$.
+	
+	برای کلاس ۱: $N_1=2$، $\bar{x}_1 = \frac{3+5}{2} = 4$، پس $\hat{\theta}_1 = \frac{1}{4} = 0.25$.
+	
+	برای کلاس ۲: $N_2=3$، $\bar{x}_2 = \frac{6+9+12}{3} = 9$، پس $\hat{\theta}_2 = \frac{1}{9} \approx 0.111$.
+	
+	\subsection{ب) نواحی و مرز تصمیم با دسته‌بند ML}
+	
+	فرض می‌کنیم احتمال پیشین کلاس‌ها برابر باشه ($P(c_1)=P(c_2)$). تصمیم بر اساس $p(x|c_1) > p(x|c_2)$ برای کلاس ۱.
+	
+	مرز تصمیم جایی که $p(x|c_1) = p(x|c_2)$، یعنی $\hat{\theta}_1 e^{-\hat{\theta}_1 x} = \hat{\theta}_2 e^{-\hat{\theta}_2 x}$.
+	
+	جایگذاری: $\frac{1}{4} e^{-x/4} = \frac{1}{9} e^{-x/9}$.
+	
+	$$\frac{e^{-x/4}}{e^{-x/9}} = \frac{1/9}{1/4} = \frac{4}{9}$$
+	
+	$$e^{x(1/9 - 1/4)} = \frac{4}{9}$$
+	
+	$$e^{-x (5/36)} = \frac{4}{9}$$
+	
+	$\ln$ هر دو طرف: $$-x \frac{5}{36} = \ln(\frac{4}{9}) = \ln 4 - \ln 9$$
+	
+	$$x \frac{5}{36} = \ln 9 - \ln 4$$
+	
+	$$x = \frac{36}{5} (\ln 9 - \ln 4) \approx 7.2 \times (2.197 - 1.386) \approx 7.2 \times 0.811 \approx 5.84$$
+	
+	برای چک کردن ناحیه: در $x=0$، $p(0|c_1)=0.25 > p(0|c_2) \approx 0.111$، پس ناحیه $0 \le x < 5.84$ برای $c_1$ و $x > 5.84$ برای $c_2$.
+	
+	(برای $x<0$، هر دو صفره و تصمیم تعریف نشده.)
+	
+\end{document}
