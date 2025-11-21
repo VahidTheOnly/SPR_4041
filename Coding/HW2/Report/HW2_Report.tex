@@ -1,0 +1,222 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{xepersian}
+\settextfont[Scale=1.1]{Amiri}
+\setlatintextfont{Times New Roman}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{float}
+
+\title{\textbf{تکلیف کامپیوتری دوم - درس شناسایی الگو}}
+\author{وحید ملکی \\ شماره دانشجویی: 40313004}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{بخش اول: تحلیل کاهش بعد روی داده‌های مارپیچ}
+	
+	\subsection*{۱. شرح مسئله و تولید داده‌ها}
+	هدف این بخش، بررسی محدودیت‌های روش‌های خطی در مواجهه با منیفولدهای غیرخطی است. بدین منظور، از یک مجموعه داده مصنوعی با ساختار «مارپیچ دوگانه» \lr{(Double Helix)} استفاده شد.
+	
+	\textbf{توضیحات پیاده‌سازی:}
+	برای تولید این داده‌ها، از معادلات پارامتریک در فضای سه‌بعدی استفاده گردید. زاویه $\theta$ در بازه $[0, 8\pi]$ تعریف شد و مختصات $(x, y, z)$ برای دو کلاس مختلف با استفاده از توابع سینوسی و کسینوسی با فازهای مخالف تولید شدند. همچنین برای نزدیک کردن داده‌ها به واقعیت، نویز گوسی با انحراف معیار مشخص به مختصات نقاط اضافه شد تا داده‌ها دقیقاً روی یک خط قرار نگیرند و حالت ابری داشته باشند.
+	
+	همان‌طور که در شکل \ref{fig:original} مشاهده می‌شود، این داده‌ها شامل دو کلاس در هم تنیده هستند که به صورت خطی تفکیک‌پذیر نمی‌باشند.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{original_spiral_3d.png}
+		\caption{داده‌های اولیه با ساختار مارپیچ دوگانه در فضای سه‌بعدی}
+		\label{fig:original}
+	\end{figure}
+	
+	\subsection*{۲. تحلیل و پیاده‌سازی PCA استاندارد}
+	در گام نخست، الگوریتم PCA (تحلیل مؤلفه‌های اصلی) روی داده‌ها اعمال شد. پیاده‌سازی این بخش با استفاده از کلاس \lr{PCA} از کتابخانه \lr{scikit-learn} انجام گرفت.
+	
+	\textbf{تحلیل عملکرد:}
+	از آنجا که PCA یک تبدیل خطی است و بر اساس تجزیه مقادیر ویژه \lr{(Eigenvalue Decomposition)} ماتریس کواریانس عمل می‌کند، تنها قادر به شناسایی جهت‌هایی با بیشترین واریانس سراسری (Global) است. در نتیجه، این الگوریتم نتوانست ساختار پیچیده و غیرخطی مارپیچ را باز کند. همان‌طور که در شکل \ref{fig:pca} مشخص است، داده‌ها تنها دوران یافته‌اند و همچنان در هم تنیده باقی مانده‌اند.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{pca_no_reduction.png}
+		\caption{خروجی PCA استاندارد؛ ساختار مارپیچ همچنان حفظ شده است.}
+		\label{fig:pca}
+	\end{figure}
+	
+	\subsection*{۳. تحلیل و پیاده‌سازی Kernel PCA}
+	برای غلبه بر مشکل خطی بودن PCA، از الگوریتم Kernel PCA استفاده شد. ایده اصلی این روش، نگاشت داده‌ها به یک فضای ویژگی با ابعاد بالاتر \lr{(Feature Space)} است که در آن داده‌ها به صورت خطی تفکیک‌پذیر شوند.
+	
+	رابطه ریاضی کرنل RBF (شعاعی) که در این تمرین استفاده شد به صورت زیر است:
+	\begin{equation}
+		K(x, y) = \exp(-\gamma ||x - y||^2)
+	\end{equation}
+	که در آن $\gamma$ پارامتر تنظیمی کرنل است که شعاع تاثیر هر نمونه را مشخص می‌کند.
+	
+	\subsection*{۴. مقایسه عملکرد کرنل‌ها و انتخاب بهترین مدل}
+	در این بخش عملکرد کرنل‌های مختلف (چندجمله‌ای، سیگموئید و RBF) مورد ارزیابی قرار گرفت.
+	
+	\textbf{الف) کرنل‌های نامناسب \lr{(Polynomial و Sigmoid)}:}
+	\begin{itemize}
+		\item \textbf{چندجمله‌ای:} همان‌طور که در شکل \ref{fig:poly} دیده می‌شود، این کرنل داده‌ها را موج‌گونه کرده اما همپوشانی کلاس‌ها همچنان وجود دارد.
+		\item \textbf{سیگموئید:} شکل \ref{fig:sigmoid} نشان می‌دهد که این کرنل منجر به فروپاشی (Collapse) ساختار داده‌ها شده و برای این منیفولد مناسب نیست.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{kpca_poly.png}
+			\caption{کرنل چندجمله‌ای}
+			\label{fig:poly}
+		\end{minipage}\hfill
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{kpca_sigmoid.png}
+			\caption{کرنل سیگموئید}
+			\label{fig:sigmoid}
+		\end{minipage}
+	\end{figure}
+	
+	\textbf{ب) تحلیل کرنل RBF و انتخاب بهترین گاما:}
+	کرنل RBF بهترین عملکرد را در باز کردن مارپیچ داشت. تاثیر پارامتر $\gamma$ به شرح زیر تحلیل شد:
+	\begin{itemize}
+		\item \textbf{$\gamma=0.1$:} داده‌ها به صورت یک منحنی پیوسته باز شدند (شکل \ref{fig:gamma01})، اما دو کلاس همچنان در نزدیکی هم قرار دارند و مرز تصمیم‌گیری باریک است.
+		\item \textbf{$\gamma=1$:} جداسازی بهتر شد، اما هنوز تراکم در مرزها وجود دارد.
+		\item \textbf{$\gamma=2$ (بهترین نتیجه):} همان‌طور که در شکل \ref{fig:gamma2} مشاهده می‌شود، این مقدار بهترین تفکیک‌پذیری را ایجاد کرده است.
+	\end{itemize}
+	
+	\textbf{چرا $\gamma=2$ بهتر است؟}
+	افزایش گاما باعث می‌شود کرنل «محلی‌تر» شود (شعاع گاوسی باریک‌تر). در ساختار مارپیچ که دو کلاس در فضای اقلیدسی بسیار به هم نزدیک هستند (اما روی منیفولد دورند)، یک گامای بزرگتر باعث می‌شود نقاط فقط با همسایگان بسیار نزدیک خود (که قطعا هم‌کلاس هستند) ارتباط برقرار کنند و از نقاط کلاس مقابل که در لایه مجاور مارپیچ هستند، تاثیر نپذیرند. نتیجه این امر، جدا شدن قاطع دو کلاس به صورت دو خوشه کاملاً مجزا در فضای ویژگی است که به راحتی توسط یک خط جدا می‌شوند.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{kpca_rbf_gamma01.png}
+		\caption{کرنل RBF با $\gamma=0.1$ (همپوشانی مرزی)}
+		\label{fig:gamma01}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{kpca_rbf_gamma1.png}
+			\caption{کرنل RBF با $\gamma=1$}
+			\label{fig:gamma1}
+		\end{minipage}\hfill
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{kpca_rbf_gamma2.png}
+			\caption{کرنل RBF با $\gamma=2$ (بهترین تفکیک)}
+			\label{fig:gamma2}
+		\end{minipage}
+	\end{figure}
+	
+	\subsection*{۵. پیاده‌سازی KPCA از پایه \lr{(From Scratch)}}
+	برای صحت‌سنجی نتایج، الگوریتم KPCA با کرنل RBF و پارامتر بهینه ($\gamma=2$) به صورت دستی و بدون استفاده از \lr{sklearn} پیاده‌سازی شد. مراحل شامل تشکیل ماتریس فاصله، اعمال تابع کرنل، مرکزگری ماتریس گرام و استخراج بردارهای ویژه بود.
+	
+	خروجی این پیاده‌سازی (شکل \ref{fig:scratch}) ساختاری دقیقاً مشابه با خروجی کتابخانه استاندارد دارد. دو کلاس به صورت دو خوشه کاملاً جدا از هم تصویر شده‌اند که نشان‌دهنده قدرت بالای کرنل RBF با گامای مناسب در باز کردن منیفولدهای پیچیده است.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{kpca_from_scratch_gamma2.png}
+		\caption{خروجی KPCA پیاده‌سازی شده از پایه \lr{(RBF, $\gamma=2$)}}
+		\label{fig:scratch}
+	\end{figure}
+	
+	\newpage
+	\section{بخش دوم: بازسازی تصویر و حذف نویز روی مجموعه داده KMNIST}
+	
+	\subsection{مقدمه و تعریف مسئله}
+	در این بخش، هدف بررسی قابلیت الگوریتم‌های کاهش بعد خطی (PCA) و غیرخطی (KPCA) در فشرده‌سازی و حذف نویز (Denoising) تصاویر است. داده‌های مورد استفاده، مجموعه KMNIST شامل 60,000 تصویر آموزش و 10,000 تصویر تست از حروف خوشنویسی ژاپنی هستند.
+	چالش اصلی این بخش، مقیاس‌پذیری الگوریتم Kernel PCA است. محاسبه ماتریس کرنل برای کل داده‌ها ($60000 \times 60000$) نیازمند حافظه‌ای فراتر از توان سیستم‌های معمول است.
+	
+	\subsection{آماده‌سازی داده‌ها}
+	تصاویر به بردارهای 784 بعدی مسطح (Flatten) تبدیل شدند. سپس نویز گوسی با انحراف معیار $\sigma=0.25$ به تصاویر اضافه شد و مقادیر پیکسل‌ها در بازه $[0, 1]$ برش (Clip) خوردند. شکل \ref{fig:inputs} ورودی‌های مسئله را نشان می‌دهد.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.95\textwidth]{input_comparison.png}
+		\caption{مقایسه تصاویر اصلی (ردیف بالا) و تصاویر آلوده به نویز (ردیف پایین)}
+		\label{fig:inputs}
+	\end{figure}
+	
+	\subsection{سناریوهای پیاده‌سازی و نتایج}
+	برای تحلیل دقیق، سه سناریوی مختلف پیاده‌سازی و مقایسه شدند:
+	
+	\subsubsection{سناریوی اول: PCA خطی (Baseline)}
+	الگوریتم PCA روی تمام 60,000 داده نویزی آموزش دید و 400 مؤلفه اصلی حفظ شدند.
+	\textbf{نتیجه:} همان‌طور که در شکل \ref{fig:pca_res} دیده می‌شود، PCA عملکرد بسیار پایداری دارد. نویزهای فرکانس بالا حذف شده‌اند، اما مقداری از بافت نویز در پس‌زمینه باقی مانده است.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{pca_result.png}
+		\caption{بازسازی با PCA خطی: لبه‌ها حفظ شده اما اندکی نویز باقی است.}
+		\label{fig:pca_res}
+	\end{figure}
+	
+	\subsubsection{سناریوی دوم: KPCA استاندارد (محدودیت حافظه)}
+	در این روش از الگوریتم استاندارد \lr{KernelPCA} با کرنل RBF استفاده شد. به دلیل محدودیت حافظه، مدل تنها روی زیرمجموعه‌ای شامل \textbf{2000 تصویر} آموزش دید. بازگرداندن تصویر نیز با استفاده از روش تقریبی داخلی کتابخانه \lr{sklearn} انجام شد.
+	\textbf{نتیجه:} همان‌طور که در شکل \ref{fig:kpca_fail} مشاهده می‌شود، تصاویر خروجی بسیار مات و «شبح‌وار» هستند. این شکست ناشی از دو عامل است: 1) کمبود داده آموزشی (عدم پوشش منیفولد داده‌ها) و 2) ضعف روش بازگشتی تقریبی.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{kpca_standard_fail.png}
+		\caption{شکست KPCA استاندارد: ماتی شدید ناشی از کمبود داده آموزشی و مشکل Pre-image.}
+		\label{fig:kpca_fail}
+	\end{figure}
+	
+	\subsubsection{سناریوی سوم: KPCA مقیاس‌پذیر \lr{(Scalable KPCA)}}
+	برای رفع مشکلات سناریوی دوم، یک پایپ‌لاین پیشرفته طراحی شد که امکان آموزش روی \textbf{کل 60,000 داده} را فراهم می‌کند:
+	\begin{enumerate}
+		\item \textbf{تقریب Nystroem:} به جای محاسبه ماتریس کامل، از روش Nystroem با 2000 نقطه لندمارک استفاده شد. این روش فضای ویژگی نامتناهی کرنل RBF را با یک فضای برداری 2000 بعدی تقریب می‌زند.
+		\item \textbf{تنظیم دقیق کرنل:} پارامتر گاما روی $\gamma=0.001$ تنظیم شد تا کرنل رفتار کلی‌نگرتری داشته باشد و از ماتی تصویر جلوگیری شود.
+		\item \textbf{یادگیری پیش‌تصویر \lr{(Learned Pre-image)}:} برای بازسازی تصویر، از یک مدل \lr{Ridge Regression} استفاده شد که یاد می‌گیرد چگونه فضای فشرده (400 بعدی) را مستقیماً به پیکسل‌های تصویر نگاشت کند.
+	\end{enumerate}
+	
+	\textbf{نتیجه:} شکل \ref{fig:kpca_scale} نشان می‌دهد که کیفیت تصاویر به طرز چشمگیری بهبود یافته و قابل رقابت با PCA شده است.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{kpca_scalable.png}
+		\caption{خروجی Scalable KPCA: بازسازی دقیق و حذف موثر نویز.}
+		\label{fig:kpca_scale}
+	\end{figure}
+	
+	\subsection{مقایسه نهایی و تحلیل کمی}
+	شکل \ref{fig:final} مقایسه نهایی بین ورودی نویزی، خروجی PCA و خروجی Scalable KPCA را نشان می‌دهد.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{final_comparison.png}
+		\caption{مقایسه نهایی دنویزینگ. ردیف سوم: PCA، ردیف چهارم: \lr{Scalable KPCA}.}
+		\label{fig:final}
+	\end{figure}
+	
+	برای مقایسه دقیق، خطای میانگین مربعات (MSE) روی داده‌های تست محاسبه شد:
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{lcc}
+			\toprule
+			\textbf{روش} & \textbf{MSE (کمتر بهتر است)} & \textbf{توضیحات} \\
+			\midrule
+			Linear PCA & \textbf{$0.02442$} & سریع و دقیق \\
+			Standard KPCA (Subset) & $0.10999$ & غیرقابل استفاده \\
+			Scalable KPCA (Nystroem) & \textbf{$0.02501$} & عملکردی معادل خطی \\
+			\bottomrule
+		\end{tabular}
+		\caption{مقایسه کمی خطای بازسازی}
+	\end{table}
+	
+	\section{نتیجه‌گیری نهایی}
+	این آزمایش نتایج بسیار آموزنده‌ای در بر داشت:
+	\begin{itemize}
+		\item \textbf{اهمیت حجم داده:} آموزش KPCA روی زیرمجموعه کوچک (2000 تایی) منجر به شکست مدل شد، در حالی که استفاده از روش Nystroem برای آموزش روی کل داده‌ها (60,000 تایی)، عملکرد مدل غیرخطی را احیا کرد.
+		\item \textbf{همگرایی روش‌ها:} با تنظیم دقیق ابرپارامترها ($\gamma=0.001$) و استفاده از رگرسیون برای بازسازی، خطای روش غیرخطی ($0.02501$) تقریباً با روش خطی ($0.02442$) برابر شد.     \item \textbf{جمع‌بندی:} اگرچه PCA به دلیل سادگی و سرعت بالا همچنان گزینه اول برای پردازش تصویر است، اما این تمرین نشان داد که با مهندسی دقیق \lr{(Scalable KPCA)}، می‌توان از روش‌های کرنلی نیز برای بازسازی سیگنال با کیفیتی بسیار بالا استفاده کرد.
+	\end{itemize}
+\end{document}
