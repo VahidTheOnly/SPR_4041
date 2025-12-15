@@ -1,0 +1,91 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xepersian}
+\settextfont{Amiri}
+\setlatintextfont{Times New Roman}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\geometry{margin=2.5cm}
+
+\title{تکلیف هفتم درس شناسایی الگو}
+\author{وحید ملکی \\ شماره دانشجویی: 40313004}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{سؤال 11}
+	
+	\textbf{صورت سؤال:} الگوریتم پرسپترون با شرایط زیر داده شده است:
+	\begin{itemize}
+		\item وزن‌های اولیه: $w = [\frac{3}{2}, 1]^T = [1.5, 1]^T$
+		\item بایاس اولیه: $b = -\frac{1}{2} = -0.5$
+		\item نرخ یادگیری: $\mu = 0.75$
+	\end{itemize}
+	باید خط جداسازی پس از مشاهده‌ی تمام نمونه‌ها مشخص شده و در انتهای هر مرحله رسم گردد.
+	
+	\subsection*{داده‌های آموزشی}
+	\begin{itemize}
+		\item نمونه ۱: $X_1 = (0, 0), \quad y_1 = -1$
+		\item نمونه ۲: $X_2 = (1, 0), \quad y_2 = -1$
+		\item نمونه ۳: $X_3 = (0, 2), \quad y_3 = +1$
+		\item نمونه ۴: $X_4 = (2, 0), \quad y_4 = +1$
+	\end{itemize}
+	
+	\subsection*{مرحله اول \lr{(Epoch 1)}}
+	در این مرحله نمونه‌ها را به ترتیب بررسی می‌کنیم:
+	
+	\vspace{0.5cm}
+	
+	\textbf{۱. بررسی نمونه اول $(X_1, y_1)$:}
+	$$ g(X_1) = w^T X_1 + b = (1.5 \times 0) + (1 \times 0) - 0.5 = -0.5 $$
+	$$ y_1 g(X_1) = (-1)(-0.5) = +0.5 > 0 \quad (\text{صحیح، بدون تغییر}) $$
+	
+	\vspace{0.5cm}
+	
+	\textbf{۲. بررسی نمونه دوم $(X_2, y_2)$:}
+	$$ g(X_2) = (1.5 \times 1) + (1 \times 0) - 0.5 = 1.0 $$
+	$$ y_2 g(X_2) = (-1)(1.0) = -1.0 \le 0 \quad (\textbf{خطا رخ داده است}) $$
+	\textbf{به‌روزرسانی وزن‌ها:}
+	\begin{align*}
+		w_{\text{new}} &= w_{\text{old}} + \mu y_2 X_2 = \begin{bmatrix} 1.5 \\ 1 \end{bmatrix} + 0.75(-1)\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 0.75 \\ 1 \end{bmatrix} \\
+		b_{\text{new}} &= b_{\text{old}} + \mu y_2 = -0.5 + 0.75(-1) = -1.25
+	\end{align*}
+	پارامترهای جدید: $w=[0.75, 1]^T, \quad b=-1.25$.
+	
+	\vspace{0.5cm}
+	
+	\textbf{۳. بررسی نمونه سوم $(X_3, y_3)$ با پارامترهای جدید:}
+	$$ g(X_3) = (0.75 \times 0) + (1 \times 2) - 1.25 = 0.75 $$
+	$$ y_3 g(X_3) = (+1)(0.75) = 0.75 > 0 \quad (\text{صحیح}) $$
+	
+	\vspace{0.5cm}
+	
+	\textbf{۴. بررسی نمونه چهارم $(X_4, y_4)$ با پارامترهای جدید:}
+	$$ g(X_4) = (0.75 \times 2) + (1 \times 0) - 1.25 = 1.5 - 1.25 = 0.25 $$
+	$$ y_4 g(X_4) = (+1)(0.25) = 0.25 > 0 \quad (\text{صحیح}) $$
+	
+	\subsection*{بررسی همگرایی \lr{(Epoch 2)}}
+	چون در مرحله اول تغییر داشتیم، یک دور دیگر چک می‌کنیم. با بررسی مجدد مشخص می‌شود که تمام نمونه‌ها با وزن‌های جدید $w=[0.75, 1]^T$ و $b=-1.25$ به درستی دسته‌بندی می‌شوند (خطا صفر است). بنابراین الگوریتم همگرا شده است.
+	
+	\subsection*{پاسخ نهایی و رسم نمودار}
+	معادله خط جداکننده نهایی عبارت است از:
+	$$ 0.75 x_1 + 1 x_2 - 1.25 = 0 $$
+	که با ضرب در ۴ می‌توان به فرم زیبای زیر رسید:
+	$$ 3x_1 + 4x_2 - 5 = 0 $$
+	
+	در شکل زیر، خط جداکننده و وضعیت نمونه‌ها در پایان مرحله اول رسم شده است:
+	
+	\begin{figure}[H]
+		\centering
+		% نام فایل تصویر باید دقیقاً با نامی که ذخیره کردید یکی باشد
+		\includegraphics[width=0.7\textwidth]{q11_plot.png}
+		\caption{خط جداکننده به دست آمده توسط پرسپترون پس از همگرایی.}
+	\end{figure}
+	
+\end{document}

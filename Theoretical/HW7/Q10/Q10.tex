@@ -1,0 +1,94 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xepersian}
+\settextfont{Amiri}
+\setlatintextfont{Times New Roman}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\geometry{margin=2.5cm}
+
+\title{تکلیف هفتم درس شناسایی الگو}
+\author{وحید ملکی \\ شماره دانشجویی: 40313004}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{سؤال 10}
+	
+	\textbf{صورت سؤال:} الگوریتم پرسپترون با وزن‌های اولیه $w = [1, 1]^T$ و بایاس $b=0$ و نرخ یادگیری $\mu=1$ داده شده است. با توجه به داده‌های جدول، خط جداسازی پس از یک دور (Epoch) مشاهده‌ی تمام نمونه‌ها را بیابید.
+	شرط به‌روزرسانی: اگر $y_i(w^T X_i + b) \le 0$ باشد، آپدیت انجام می‌شود.
+	
+	\subsection*{داده‌های مسأله}
+	داده‌های آموزشی به شرح زیر هستند:
+	\begin{itemize}
+		\item نمونه ۱: $X_1 = \begin{bmatrix} 10 \\ 10 \end{bmatrix}, \quad y_1 = +1$
+		\item نمونه ۲: $X_2 = \begin{bmatrix} 0 \\ 0 \end{bmatrix}, \quad y_2 = -1$
+		\item نمونه ۳: $X_3 = \begin{bmatrix} 8 \\ 4 \end{bmatrix}, \quad y_3 = +1$
+		\item نمونه ۴: $X_4 = \begin{bmatrix} 3 \\ 3 \end{bmatrix}, \quad y_4 = -1$
+	\end{itemize}
+	
+	\subsection*{مراحل اجرا (پیمایش نمونه‌ها)}
+	
+	\textbf{۱. بررسی نمونه اول $(X_1, y_1)$:}
+	مقادیر فعلی: $w = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, b=0$.
+	\begin{align*}
+		g(X_1) &= w^T X_1 + b = (1 \times 10) + (1 \times 10) + 0 = 20 \\
+		\text{بررسی شرط خطا:} &\quad y_1 \times g(X_1) = 1 \times 20 = 20 > 0
+	\end{align*}
+	چون حاصل مثبت است، دسته‌بندی صحیح بوده و \textbf{نیازی به به‌روزرسانی نیست}.
+	
+	\vspace{0.5cm}
+	
+	\textbf{۲. بررسی نمونه دوم $(X_2, y_2)$:}
+	مقادیر فعلی: همان مقادیر اولیه.
+	\begin{align*}
+		g(X_2) &= (1 \times 0) + (1 \times 0) + 0 = 0 \\
+		\text{بررسی شرط خطا:} &\quad y_2 \times g(X_2) = -1 \times 0 = 0 \le 0
+	\end{align*}
+	طبق صورت سؤال، در حالت مساوی با صفر \textbf{به‌روزرسانی انجام می‌شود}:
+	\begin{align*}
+		w_{\text{new}} &= w_{\text{old}} + \mu y_2 X_2 = \begin{bmatrix} 1 \\ 1 \end{bmatrix} + 1(-1)\begin{bmatrix} 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \end{bmatrix} \\
+		b_{\text{new}} &= b_{\text{old}} + \mu y_2 = 0 + 1(-1) = -1
+	\end{align*}
+	(دقت کنید که چون بردار ورودی صفر بود، بردار وزن تغییری نکرد اما بایاس تغییر یافت).
+	
+	\vspace{0.5cm}
+	
+	\textbf{۳. بررسی نمونه سوم $(X_3, y_3)$:}
+	مقادیر فعلی: $w = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, b=-1$.
+	\begin{align*}
+		g(X_3) &= (1 \times 8) + (1 \times 4) + (-1) = 11 \\
+		\text{بررسی شرط خطا:} &\quad y_3 \times g(X_3) = 1 \times 11 = 11 > 0
+	\end{align*}
+	دسته‌بندی صحیح است، \textbf{بدون تغییر}.
+	
+	\vspace{0.5cm}
+	
+	\textbf{۴. بررسی نمونه چهارم $(X_4, y_4)$:}
+	مقادیر فعلی: $w = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, b=-1$.
+	\begin{align*}
+		g(X_4) &= (1 \times 3) + (1 \times 3) + (-1) = 5 \\
+		\text{بررسی شرط خطا:} &\quad y_4 \times g(X_4) = -1 \times 5 = -5 \le 0
+	\end{align*}
+	خطا رخ داده است. \textbf{به‌روزرسانی انجام می‌شود}:
+	\begin{align*}
+		w_{\text{new}} &= w_{\text{old}} + \mu y_4 X_4 = \begin{bmatrix} 1 \\ 1 \end{bmatrix} + 1(-1)\begin{bmatrix} 3 \\ 3 \end{bmatrix} = \begin{bmatrix} 1-3 \\ 1-3 \end{bmatrix} = \begin{bmatrix} -2 \\ -2 \end{bmatrix} \\
+		b_{\text{new}} &= b_{\text{old}} + \mu y_4 = -1 + 1(-1) = -2
+	\end{align*}
+	
+	\subsection*{پاسخ نهایی}
+	پس از مشاهده‌ی تمام نمونه‌ها، پارامترهای نهایی شبکه عبارتند از:
+	$$ w = \begin{bmatrix} -2 \\ -2 \end{bmatrix}, \quad b = -2 $$
+	معادله‌ی خط جداکننده ($g(x)=0$) به صورت زیر خواهد بود:
+	$$ -2x_1 - 2x_2 - 2 = 0 $$
+	که با ساده‌سازی (تقسیم بر $-2$) به معادله‌ی زیر می‌رسیم:
+	\begin{equation*}
+		\boxed{x_1 + x_2 + 1 = 0}
+	\end{equation*}
+	
+\end{document}
