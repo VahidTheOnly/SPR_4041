@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (MiKTeX 24.4) (preloaded format=xelatex 2025.7.13)  16 DEC 2025 16:22
+This is XeTeX, Version 3.141592653-2.6-0.999996 (MiKTeX 24.4) (preloaded format=xelatex 2025.7.13)  16 DEC 2025 17:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -201,18 +201,24 @@ Package caption Info: Standard document class detected.
 \c@continuedfloat=\count285
 Package caption Info: float package is loaded.
 )
-(C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count286
+(C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count286
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count287
+) (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count288
 \lst@gtempboxa=\box56
 \lst@token=\toks26
-\lst@length=\count287
+\lst@length=\count289
 \lst@currlwidth=\dimen182
-\lst@column=\count288
-\lst@pos=\count289
+\lst@column=\count290
+\lst@pos=\count291
 \lst@lostspace=\dimen183
 \lst@width=\dimen184
-\lst@newlines=\count290
-\lst@lineno=\count291
+\lst@newlines=\count292
+\lst@lineno=\count293
 \lst@maxwidth=\dimen185
 
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
@@ -220,8 +226,8 @@ File: lstpatch.sty 2024/05/25 1.10b (Carsten Heinz)
 )
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2024/05/25 1.10b (Carsten Heinz)
-\c@lstnumber=\count292
-\lst@skipnumbers=\count293
+\c@lstnumber=\count294
+\lst@skipnumbers=\count295
 \lst@framebox=\box57
 )
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
@@ -284,10 +290,10 @@ Package: expl3 2024-08-30 L3 programming layer (loader)
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-xet
 ex.def
 File: l3backend-xetex.def 2024-05-08 L3 backend support: XeTeX
-\g__graphics_track_int=\count294
+\g__graphics_track_int=\count296
 \l__pdf_internal_box=\box58
-\g__pdf_backend_annotation_int=\count295
-\g__pdf_backend_link_int=\count296
+\g__pdf_backend_annotation_int=\count297
+\g__pdf_backend_link_int=\count298
 ))
 Package: xparse 2024-08-16 L3 Experimental document command parser
 )
@@ -297,17 +303,17 @@ Package: fontspec 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
 .sty
 Package: fontspec-xetex 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTe
 X
-\l__fontspec_script_int=\count297
-\l__fontspec_language_int=\count298
-\l__fontspec_strnum_int=\count299
-\l__fontspec_tmp_int=\count300
-\l__fontspec_tmpa_int=\count301
-\l__fontspec_tmpb_int=\count302
-\l__fontspec_tmpc_int=\count303
-\l__fontspec_em_int=\count304
-\l__fontspec_emdef_int=\count305
-\l__fontspec_strong_int=\count306
-\l__fontspec_strongdef_int=\count307
+\l__fontspec_script_int=\count299
+\l__fontspec_language_int=\count300
+\l__fontspec_strnum_int=\count301
+\l__fontspec_tmp_int=\count302
+\l__fontspec_tmpa_int=\count303
+\l__fontspec_tmpb_int=\count304
+\l__fontspec_tmpc_int=\count305
+\l__fontspec_em_int=\count306
+\l__fontspec_emdef_int=\count307
+\l__fontspec_strong_int=\count308
+\l__fontspec_strongdef_int=\count309
 \l__fontspec_tmpa_dim=\dimen186
 \l__fontspec_tmpb_dim=\dimen187
 \l__fontspec_tmpc_dim=\dimen188
@@ -319,43 +325,43 @@ Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/xelatex/xepersian\xepersian-p
 ersiancal.sty
 Package: xepersian-persiancal 2025/01/01 v0.3 provides Persian calendar
-\XePersian@i=\count308
-\XePersian@y=\count309
-\XePersian@m=\count310
-\XePersian@d=\count311
-\XePersian@latini=\count312
-\XePersian@persiani=\count313
-\XePersian@latinii=\count314
-\XePersian@persianii=\count315
-\XePersian@latiniii=\count316
-\XePersian@persianiii=\count317
-\XePersian@latiniv=\count318
-\XePersian@persianiv=\count319
-\XePersian@latinv=\count320
-\XePersian@persianv=\count321
-\XePersian@latinvi=\count322
-\XePersian@persianvi=\count323
-\XePersian@latinvii=\count324
-\XePersian@persianvii=\count325
-\XePersian@latinviii=\count326
-\XePersian@persianviii=\count327
-\XePersian@latinix=\count328
-\XePersian@persianix=\count329
-\XePersian@latinx=\count330
-\XePersian@persianx=\count331
-\XePersian@latinxi=\count332
-\XePersian@persianxi=\count333
-\XePersian@latinxii=\count334
-\XePersian@persianxii=\count335
-\XePersian@persianxiii=\count336
-\XePersian@temp=\count337
-\XePersian@temptwo=\count338
-\XePersian@tempthree=\count339
-\XePersian@yModHundred=\count340
-\XePersian@thirtytwo=\count341
-\XePersian@dn=\count342
-\XePersian@sn=\count343
-\XePersian@mminusone=\count344
+\XePersian@i=\count310
+\XePersian@y=\count311
+\XePersian@m=\count312
+\XePersian@d=\count313
+\XePersian@latini=\count314
+\XePersian@persiani=\count315
+\XePersian@latinii=\count316
+\XePersian@persianii=\count317
+\XePersian@latiniii=\count318
+\XePersian@persianiii=\count319
+\XePersian@latiniv=\count320
+\XePersian@persianiv=\count321
+\XePersian@latinv=\count322
+\XePersian@persianv=\count323
+\XePersian@latinvi=\count324
+\XePersian@persianvi=\count325
+\XePersian@latinvii=\count326
+\XePersian@persianvii=\count327
+\XePersian@latinviii=\count328
+\XePersian@persianviii=\count329
+\XePersian@latinix=\count330
+\XePersian@persianix=\count331
+\XePersian@latinx=\count332
+\XePersian@persianx=\count333
+\XePersian@latinxi=\count334
+\XePersian@persianxi=\count335
+\XePersian@latinxii=\count336
+\XePersian@persianxii=\count337
+\XePersian@persianxiii=\count338
+\XePersian@temp=\count339
+\XePersian@temptwo=\count340
+\XePersian@tempthree=\count341
+\XePersian@yModHundred=\count342
+\XePersian@thirtytwo=\count343
+\XePersian@dn=\count344
+\XePersian@sn=\count345
+\XePersian@mminusone=\count346
 )
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/xelatex/xepersian\unicode-per
 sianmath.sty
@@ -396,17 +402,17 @@ setting in plain TeX and LaTeX
 Package: biditools 2025/02/02 v2.7 Programming tools for bidi package
 \@bidi@envbody=\toks27
 \@bidi@emptytoks=\toks28
-\bidi@poscount=\count345
-\bidi@tempcountb=\count346
+\bidi@poscount=\count347
+\bidi@tempcountb=\count348
 \bidi@temptoksa=\toks29
 \bidi@temptoksb=\toks30
-\bidi@dummies=\count347
+\bidi@dummies=\count349
 \bidi@are@these@correct=\toks31
 \bidi@toks@lista=\toks32
 \bidi@toks@listb=\toks33
-\bidi@stack@length=\count348
+\bidi@stack@length=\count350
 \bidi@empty@stack=\toks34
-\bidi@looprepeat@depth=\count349
+\bidi@looprepeat@depth=\count351
 )
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/latex/zref\zref-abspage.sty
 Package: zref-abspage 2025-06-08 v2.36 Module abspage for zref (HO)
@@ -445,12 +451,12 @@ Package zref Info: New property list: main on input line 767.
 Package zref Info: New property: default on input line 768.
 Package zref Info: New property: page on input line 769.
 )
-\c@abspage=\count350
+\c@abspage=\count352
 Package zref Info: New property: abspage on input line 67.
 )
 \@bidi@copyins@=\insert252
-\bidi@typesethour=\count351
-\bidi@typesetminute=\count352
+\bidi@typesethour=\count353
+\bidi@typesetminute=\count354
 
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/xelatex/bidi\latex-xetex-bidi
 .def
@@ -461,13 +467,13 @@ LaTeX Info: Redefining \centerline on input line 316.
 LaTeX Info: Redefining \leftline on input line 325.
 LaTeX Info: Redefining \rightline on input line 326.
 LaTeX Info: Redefining \underline on input line 334.
-\bidi@column@check@number=\count353
+\bidi@column@check@number=\count355
 
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/xelatex/bidi\footnote-xetex-b
 idi.def
 File: footnote-xetex-bidi.def 2024/12/14 v1.3 bidi footnote macros for XeTeX en
 gine
-\c@footdir@label=\count354
+\c@footdir@label=\count356
 \footdir@toks=\toks36
 )
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/xelatex/bidi\article-xetex-bi
@@ -528,11 +534,11 @@ File: xcolor-xetex-bidi.def 2022/06/13 v0.3 bidi adaptations for xcolor package
 LaTeX Info: Redefining \color on input line 48.
 LaTeX Info: Redefining \bidicolor on input line 91.
 ))
-\bidi@digits=\count355
+\bidi@digits=\count357
 \bidi@digits@charclass=\XeTeXcharclass1
 \bidi@sepmark@charclass=\XeTeXcharclass2
 )
-\xepersian@tcl=\count356
+\xepersian@tcl=\count358
 \xepersian@ilg=\dimen189
 \xepersian@strutilg=\dimen190
 
@@ -651,7 +657,7 @@ rab;mapping=persian-tex-text;"
 arab;mapping=persian-tex-text;"
 
 LaTeX Font Info:    Font shape `TU/Amiri(0)/m/n' will be
-(Font)              scaled to size 13.20007pt on input line 15.
+(Font)              scaled to size 13.20007pt on input line 16.
 
 Package fontspec Info: 
 (fontspec)             Font family 'TimesNewRoman(0)' created for font 'Times
@@ -685,7 +691,7 @@ ext;"
 (fontspec)             Roman/BI/OT:script=latn;language=dflt;+smcp;mapping=tex-
 text;"
 
-LaTeX Info: Redefining \latinfont on input line 16.
+LaTeX Info: Redefining \latinfont on input line 17.
 
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/xelatex/bidi\float-xetex-bidi
 .def
@@ -694,28 +700,28 @@ or XeTeX engine
 ) (CHW4.aux)
 \openout1 = `CHW4.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 2
-1.
+2.
 
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/latex/base\ts1cmr.fd
 File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -754,66 +760,57 @@ LaTeX Font Info:    ... okay on input line 21.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count357
+\c@lstlisting=\count359
 LaTeX Font Info:    Font shape `TU/Amiri(0)/m/n' will be
-(Font)              scaled to size 22.81412pt on input line 23.
+(Font)              scaled to size 22.81412pt on input line 24.
 LaTeX Font Info:    Font shape `TU/Amiri(0)/b/n' will be
-(Font)              scaled to size 22.81412pt on input line 23.
+(Font)              scaled to size 22.81412pt on input line 24.
 LaTeX Font Info:    Font shape `TU/Amiri(0)/m/n' will be
-(Font)              scaled to size 15.84007pt on input line 23.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 23.
+(Font)              scaled to size 15.84007pt on input line 24.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 24.
 
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 23.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 24.
 
 
 (C:\Users\kingv\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `TU/Amiri(0)/m/n' will be
-(Font)              scaled to size 19.0081pt on input line 25.
+(Font)              scaled to size 19.0081pt on input line 26.
 LaTeX Font Info:    Font shape `TU/Amiri(0)/b/n' will be
-(Font)              scaled to size 19.0081pt on input line 25.
+(Font)              scaled to size 19.0081pt on input line 26.
 LaTeX Font Info:    Font shape `TU/Amiri(0)/b/n' will be
-(Font)              scaled to size 15.84007pt on input line 32.
+(Font)              scaled to size 15.84007pt on input line 31.
 LaTeX Font Info:    Font shape `TU/Amiri(0)/b/n' will be
-(Font)              scaled to size 13.20007pt on input line 35.
+(Font)              scaled to size 13.20007pt on input line 34.
 
 
 [1
 
 ]
-Overfull \hbox (60.93982pt too wide) in paragraph at lines 76--77
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][] []
- []
-
-
-\endL or \endR problem (0 missing, 1 extra) in paragraph at lines 78--80
-[][][][]\TU/Amiri(0)/b/n/12 تحلیل عملکرد ضعیف خطی: \TU/Amiri(0)/m/n/12 دلیل اصل
-ی این عملکرد ضعیف در پیاده‌سازی دستی، ماهیت الگوریتم
- []
-
+LaTeX Font Info:    Font shape `TU/Amiri(0)/m/n' will be
+(Font)              scaled to size 8.80005pt on input line 75.
+LaTeX Font Info:    Font shape `TU/Amiri(0)/m/n' will be
+(Font)              scaled to size 6.60004pt on input line 75.
 
 
 [2]
-Overfull \hbox (60.93982pt too wide) in paragraph at lines 83--84
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][] []
- []
-
-
-\endL or \endR problem (0 missing, 1 extra) in paragraph at lines 85--86
-[][][][] 
- []
-
 File: numpy_results.png Graphic file (type bmp)
 <numpy_results.png>
+LaTeX Font Info:    Font shape `TU/Amiri(0)/m/n' will be
+(Font)              scaled to size 12.04506pt on input line 122.
+File: sklearn_results.png Graphic file (type bmp)
+<sklearn_results.png>
 
 
 [3]
-File: sklearn_results.png Graphic file (type bmp)
-<sklearn_results.png>
+File: confusion_matrix_numpy_results.png Graphic file (type bmp)
+<confusion_matrix_numpy_results.png>
+File: confusion_matrix_sklearn_results.png Graphic file (type bmp)
+<confusion_matrix_sklearn_results.png>
 
 
 [4]
@@ -825,12 +822,12 @@ L3 programming layer <2024-08-30>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 11623 strings out of 410975
- 266987 string characters out of 5789046
- 676608 words of memory out of 5000000
- 33973 multiletter control sequences out of 15000+600000
- 565673 words of font info for 110 fonts, out of 8000000 for 9000
+ 11750 strings out of 410975
+ 269832 string characters out of 5789046
+ 673359 words of memory out of 5000000
+ 34093 multiletter control sequences out of 15000+600000
+ 567526 words of font info for 116 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 94i,8n,107p,1213b,1014s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 94i,8n,107p,1213b,517s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on CHW4.pdf (5 pages).
