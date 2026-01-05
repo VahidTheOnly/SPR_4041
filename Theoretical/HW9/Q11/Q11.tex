@@ -1,0 +1,127 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xepersian}
+\settextfont{Amiri}
+\setlatintextfont{Times New Roman}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows, positioning}
+
+\geometry{margin=2.5cm}
+
+\title{تکلیف نهم درس شناسایی الگو}
+\author{وحید ملکی \\ شماره دانشجویی: 40313004}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	
+	\section*{سوال ۱۱: طراحی شبکه عصبی RBF}
+	
+	\subsection*{تحلیل داده‌ها و تعیین مراکز}
+	هدف مساله جداسازی دو کلاس است:
+	\begin{itemize}
+		\item \textbf{کلاس ۱ (دایره‌های مشکی):} این نمونه‌ها در دو ناحیه متمرکز شده‌اند.
+		\begin{enumerate}
+			\item یک خوشه به شکل لوزی در سمت چپ پایین تصویر که مرکز ثقل آن تقریباً نقطه $\mu_1 = (1, 1)$ است.
+			\item یک تک نمونه در سمت راست بالا که در مختصات $\mu_2 = (3, 3)$ قرار دارد.
+		\end{enumerate}
+		\item \textbf{کلاس ۲ (دایره‌های سفید):} این نمونه‌ها اطراف خوشه‌های کلاس ۱ قرار گرفته‌اند (مثلاً در نقاط $(0,0), (2,0), (0,2)$ و یک حلقه دور نقطه $(3,3)$).
+	\end{itemize}
+	
+	از آنجا که شبکه‌های RBF بر اساس فاصله از مراکز (Centroids) عمل می‌کنند، بهترین استراتژی قرار دادن نورون‌های لایه مخفی روی مراکز تجمعی یکی از کلاس‌ها (در اینجا کلاس ۱) است. بنابراین ما دو نورون در لایه مخفی در نظر می‌گیریم.
+	
+	\subsection*{ساختار شبکه و پارامترها}
+	شبکه پیشنهادی دارای مشخصات زیر است:
+	\begin{itemize}
+		\item \textbf{لایه ورودی:} ۲ نورون (متناظر با مختصات $x_1$ و $x_2$).
+		\item \textbf{لایه مخفی:} ۲ نورون با تابع فعالیت گوسی (RBF).
+		\item \textbf{لایه خروجی:} ۱ نورون خطی با حد آستانه.
+	\end{itemize}
+	
+	\subsubsection*{۱. مراکز (Centers)}
+	مراکز نورون‌های لایه مخفی ($\mu$) را روی مراکز کلاس ۱ تنظیم می‌کنیم:
+	$$ \boldsymbol{\mu}_1 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \quad \boldsymbol{\mu}_2 = \begin{bmatrix} 3 \\ 3 \end{bmatrix} $$
+	
+	\subsubsection*{۲. پهنای باند (Spread)}
+	پارامتر $\sigma$ (انحراف معیار) باید طوری انتخاب شود که تابع گوسی برای نمونه‌های کلاس ۱ خروجی بالا (نزدیک ۱) و برای نمونه‌های کلاس ۲ خروجی پایین (نزدیک ۰) تولید کند.
+	\begin{itemize}
+		\item فاصله نمونه‌های کلاس ۱ تا مرکز خود بسیار کم است (مثلاً در خوشه اول حدود $0.5$ واحد).
+		\item فاصله نزدیک‌ترین نمونه کلاس ۲ تا مراکز حدود $1$ واحد است (مثلاً فاصله $(2,3)$ تا $(3,3)$ برابر ۱ است).
+	\end{itemize}
+	برای ایجاد تفکیک مناسب، $\sigma$ را می‌توان عددی مانند $0.6$ در نظر گرفت تا در فاصله $r=0.5$ مقدار تابع بالا باشد و در $r=1$ افت قابل توجهی داشته باشد.
+	$$ \sigma_1 = \sigma_2 = 0.6 $$
+	
+	تابع فعالیت لایه مخفی برای نورون $j$:
+	$$ \varphi_j(\mathbf{x}) = \exp\left( -\frac{\|\mathbf{x} - \boldsymbol{\mu}_j\|^2}{2\sigma^2} \right) $$
+	
+	\subsubsection*{۳. وزن‌های لایه خروجی}
+	چون هر دو نورون مخفی نمایانگر کلاس ۱ هستند، وزن‌های اتصال آن‌ها به خروجی باید مثبت و برابر باشد. فرض می‌کنیم خروجی مطلوب برای کلاس ۱ برابر $+1$ و برای کلاس ۲ برابر $-1$ (یا ۰) باشد.
+	$$ w_1 = 1, \quad w_2 = 1 $$
+	
+	معادله نهایی خروجی شبکه (بدون بایاس):
+	$$ y(\mathbf{x}) = w_1 \varphi_1(\mathbf{x}) + w_2 \varphi_2(\mathbf{x}) = \exp\left( -\frac{\|\mathbf{x} - \boldsymbol{\mu}_1\|^2}{0.72} \right) + \exp\left( -\frac{\|\mathbf{x} - \boldsymbol{\mu}_2\|^2}{0.72} \right) $$
+	
+	برای تصمیم‌گیری نهایی، یک حد آستانه (Threshold) مثلاً $T=0.5$ در نظر می‌گیریم. اگر $y > 0.5$ باشد، کلاس ۱ و در غیر این صورت کلاس ۲ است.
+	
+	\subsection*{رسم نواحی تصمیم‌گیری}
+	نواحی تصمیم‌گیری در شبکه‌های RBF با تابع پایه گوسی و وزن‌های برابر، به صورت دایره‌هایی اطراف مراکز شکل می‌گیرند. در اینجا ما دو ناحیه تصمیم‌گیری دایروی جداگانه خواهیم داشت.
+	
+	% شروع محیط شکل
+	\begin{figure}[H] 
+		\centering
+		% شروع محیط لاتین برای جلوگیری از تداخل زی‌پرشین با تیکز
+		\begin{latin}
+			\begin{tikzpicture}[scale=1.5]
+				% Draw Axes
+				\draw[->, thick] (-0.5,0) -- (5,0) node[right] {$x_1$};
+				\draw[->, thick] (0,-0.5) -- (0,5) node[above] {$x_2$};
+				
+				% Draw Grid Ticks
+				\foreach \x in {1,2,3,4} \draw (\x,0.1) -- (\x,-0.1) node[below] {\small \x};
+				\foreach \y in {1,2,3,4} \draw (0.1,\y) -- (-0.1,\y) node[left] {\small \y};
+				
+				% --- DATA POINTS ---
+				
+				% Class 1 (Black Circles) - Cluster 1
+				\foreach \p in {(1,1), (0.6,1), (1.4,1), (1,0.6), (1,1.4)}
+				\fill[black] \p circle (2pt);
+				
+				% Class 1 (Black Circles) - Cluster 2
+				\fill[black] (3,3) circle (2pt);
+				
+				% Class 2 (White Circles) - Surroundings of Cluster 1
+				\foreach \p in {(0,0), (2,0), (0,2)}
+				\draw[thick, fill=white] \p circle (2pt);
+				
+				% Class 2 (White Circles) - Surroundings of Cluster 2
+				\foreach \p in {(3,2), (3,4), (2,3), (4,3)}
+				\draw[thick, fill=white] \p circle (2pt);
+				
+				% --- DECISION BOUNDARIES ---
+				% These are contours where the RBF output equals the threshold
+				\draw[red, thick, dashed] (1,1) circle (0.8cm);
+				\node[red, above left] at (0.8, 1.6) {R1};
+				
+				\draw[blue, thick, dashed] (3,3) circle (0.7cm);
+				\node[blue, above right] at (3.5, 3.5) {R2};
+				
+				% Legend
+				\matrix [draw, below left] at (7, 5.5) {
+					\node [label=right:Class 1] {}; \fill[black] (0,0) circle (2pt); \\
+					\node [label=right:Class 2] {}; \draw[thick, fill=white] (0,0) circle (2pt); \\
+					\node [label=right:Decision Boundary] {}; \draw[thick, dashed] (-0.2,0) -- (0.2,0); \\
+				};
+			\end{tikzpicture}
+		\end{latin}
+		\caption{نواحی تصمیم‌گیری تقریبی شبکه RBF}
+	\end{figure}
+	
+	\textbf{توضیح شکل:} خطوط چین‌دار نواحی تصمیم‌گیری تقریبی را نشان می‌دهند. هر ورودی که داخل این دایره‌ها قرار گیرد (نواحی R1 و R2)، توسط شبکه به عنوان \textbf{کلاس ۱} (دایره مشکی) و هر نقطه‌ای خارج از این دایره‌ها به عنوان \textbf{کلاس ۲} دسته‌بندی می‌شود. شعاع دایره‌ها وابسته به پارامتر پهنای باند ($\sigma$) و حد آستانه انتخاب شده است.
+	
+\end{document}

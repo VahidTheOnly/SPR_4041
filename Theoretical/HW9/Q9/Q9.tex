@@ -1,0 +1,133 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xepersian}
+\settextfont{Amiri}
+\setlatintextfont{Times New Roman}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\geometry{margin=2.5cm}
+
+\title{تکلیف نهم درس شناسایی الگو}
+\author{وحید ملکی \\ شماره دانشجویی: 40313004}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\section*{سؤال 9}
+	
+	\subsection*{الف- تعداد پارامترهای شبکه}
+	در این شبکه عصبی، پارامترها شامل وزن‌ها و بایاس‌ها هستند. طبق صورت سوال، بایاس‌ها نیز به عنوان پارامتر در نظر گرفته می‌شوند (که در ابعاد بردارهای ورودی گسترش‌یافته لحاظ شده‌اند).
+	
+	\begin{itemize}
+		\item \textbf{لایه اول (ورودی به پنهان):}
+		\begin{itemize}
+			\item تعداد ورودی‌ها (تصویر مسطح شده): $64 \times 64 = 4096$.
+			\item از آنجا که بردار ورودی $\mathbf{x}$ گسترش‌یافته است (شامل بایاس)، طول آن برابر است با $4096 + 1 = 4097$.
+			\item تعداد نرون‌های لایه پنهان: $1024$.
+			\item ابعاد ماتریس وزن $V$ برابر است با $1024 \times 4097$.
+			\item تعداد پارامترهای این لایه:
+			$$ 1024 \times 4097 = 4,195,328 $$
+		\end{itemize}
+		
+		\item \textbf{لایه دوم (پنهان به خروجی):}
+		\begin{itemize}
+			\item خروجی لایه پنهان $\mathbf{h}$ نیز گسترش‌یافته است. تعداد نرون‌های پنهان $1024$ است، بنابراین با احتساب یک بایاس اضافی، طول $\mathbf{h}$ برابر $1025$ می‌شود.
+			\item تعداد نرون‌های خروجی: $2$ (زاویه فرمان و سرعت).
+			\item ابعاد ماتریس وزن $W$ برابر است با $2 \times 1025$.
+			\item تعداد پارامترهای این لایه:
+			$$ 2 \times 1025 = 2,050 $$
+		\end{itemize}
+		
+		\item \textbf{مجموع کل پارامترها:}
+		$$ 4,195,328 + 2,050 = 4,197,378 $$
+	\end{itemize}
+	بنابراین، این شبکه در مجموع دارای $4,197,378$ پارامتر قابل آموزش است.
+	
+	\subsection*{ب- ابعاد ماتریس‌ها و بردارها}
+	با توجه به توضیحات سوال و بخش قبل، ابعاد به شرح زیر است:
+	\begin{itemize}
+		\item $\mathbf{x}$: بردار ورودی گسترش‌یافته (شامل $4096$ پیکسل + $1$ بایاس).
+		$$ \text{Dimensions of } \mathbf{x}: 4097 \times 1 $$
+		
+		\item $V$: ماتریس وزن‌های لایه اول (اتصال ورودی به پنهان). تعداد سطرها برابر تعداد نرون‌های پنهان و ستون‌ها برابر ورودی گسترش‌یافته.
+		$$ \text{Dimensions of } V: 1024 \times 4097 $$
+		
+		\item $\mathbf{g}$: ورودی خالص لایه پنهان ($\mathbf{g} = V\mathbf{x}$).
+		$$ \text{Dimensions of } \mathbf{g}: 1024 \times 1 $$
+		
+		\item $\mathbf{h}$: خروجی لایه پنهان گسترش‌یافته (شامل خروجی تابع فعالیت + $1$ بایاس).
+		$$ \text{Dimensions of } \mathbf{h}: 1025 \times 1 $$
+		
+		\item $W$: ماتریس وزن‌های لایه دوم (اتصال پنهان به خروجی). تعداد سطرها برابر تعداد خروجی و ستون‌ها برابر خروجی پنهان گسترش‌یافته.
+		$$ \text{Dimensions of } W: 2 \times 1025 $$
+		
+		\item $\mathbf{\hat{y}}$ و $\mathbf{y}$: بردار خروجی شبکه و خروجی مطلوب.
+		$$ \text{Dimensions of } \mathbf{\hat{y}}, \mathbf{y}: 2 \times 1 $$
+	\end{itemize}
+	
+	\subsection*{ج- مشتق تابع هزینه نسبت به $W_{ij}$}
+	تابع هزینه عبارت است از:
+	$$ J = \frac{1}{2} \|\mathbf{y} - \mathbf{\hat{y}}\|^2 = \frac{1}{2} \sum_{k=1}^{2} (y_k - \hat{y}_k)^2 $$
+	می‌دانیم که $\hat{y}_i = \sum_{m} W_{im} h_m$ (سطر $i$-ام ماتریس $W$ ضرب‌در بردار $\mathbf{h}$).
+	
+	برای محاسبه $\frac{\partial J}{\partial W_{ij}}$ از قاعده زنجیره‌ای استفاده می‌کنیم:
+	$$ \frac{\partial J}{\partial W_{ij}} = \frac{\partial J}{\partial \hat{y}_i} \cdot \frac{\partial \hat{y}_i}{\partial W_{ij}} $$
+	
+	مرحله اول (مشتق هزینه نسبت به خروجی):
+	$$ \frac{\partial J}{\partial \hat{y}_i} = \frac{\partial}{\partial \hat{y}_i} \left( \frac{1}{2} (y_i - \hat{y}_i)^2 \right) = -(y_i - \hat{y}_i) $$
+	
+	مرحله دوم (مشتق خروجی نسبت به وزن):
+	$$ \frac{\partial \hat{y}_i}{\partial W_{ij}} = \frac{\partial}{\partial W_{ij}} \left( \sum_{m} W_{im} h_m \right) = h_j $$
+	
+	بنابراین:
+	$$ \frac{\partial J}{\partial W_{ij}} = -(y_i - \hat{y}_i) h_j $$
+	
+	\subsection*{د- مشتق تابع هزینه نسبت به ماتریس $W$}
+	با توجه به رابطه به دست آمده در بخش (ج)، عنصر $(i, j)$ ماتریس گرادیان برابر است با ضرب اسکالر خطای خروجی $i$ در ورودی $j$ (از لایه قبل).
+	به فرم ماتریسی، این عبارت برابر است با حاصل‌ضرب بردار ستونی خطا در ترانهاده بردار ورودی لایه (بردار $\mathbf{h}$).
+	
+	اگر بردار خطا را $\mathbf{e} = \mathbf{y} - \mathbf{\hat{y}}$ در نظر بگیریم:
+	$$ \frac{\partial J}{\partial W} = -(\mathbf{y} - \mathbf{\hat{y}}) \mathbf{h}^T $$
+	
+	بررسی ابعاد:
+	$$ (2 \times 1) \times (1 \times 1025) = 2 \times 1025 $$
+	که دقیقاً برابر ابعاد ماتریس $W$ است.
+	
+	\subsection*{ه- مشتق تابع هزینه نسبت به $V_{ij}$}
+	وزن $V_{ij}$ ورودی $x_j$ را به نرون پنهان $i$ متصل می‌کند. مسیر تاثیرگذاری به صورت زیر است:
+	$$ V_{ij} \rightarrow g_i \rightarrow h_i \rightarrow \mathbf{\hat{y}} \rightarrow J $$
+	
+	از قاعده زنجیره‌ای استفاده می‌کنیم. از آنجا که تغییر در $h_i$ روی تمامی خروجی‌های $\hat{y}_k$ تاثیر می‌گذارد، باید روی $k$ جمع ببندیم:
+	$$ \frac{\partial J}{\partial V_{ij}} = \sum_{k=1}^{2} \left( \frac{\partial J}{\partial \hat{y}_k} \cdot \frac{\partial \hat{y}_k}{\partial h_i} \right) \cdot \frac{\partial h_i}{\partial g_i} \cdot \frac{\partial g_i}{\partial V_{ij}} $$
+	
+	اجزای رابطه:
+	\begin{enumerate}
+		\item $\frac{\partial J}{\partial \hat{y}_k} = -(y_k - \hat{y}_k)$
+		\item $\frac{\partial \hat{y}_k}{\partial h_i} = W_{ki}$
+		\item $\frac{\partial h_i}{\partial g_i} = f'(g_i)$ (مشتق تابع فعالیت \lr{ReLU})
+		\item $\frac{\partial g_i}{\partial V_{ij}} = x_j$
+	\end{enumerate}
+	
+	جایگذاری در رابطه اصلی:
+	$$ \frac{\partial J}{\partial V_{ij}} = \left( \sum_{k=1}^{2} -(y_k - \hat{y}_k) W_{ki} \right) f'(g_i) x_j $$
+	
+	یا به صورت ساده‌تر با فاکتورگیری از منفی:
+	$$ \frac{\partial J}{\partial V_{ij}} = - \left( \sum_{k=1}^{2} (y_k - \hat{y}_k) W_{ki} \right) f'(g_i) x_j $$
+	
+	\subsection*{و- روابط بازگشتی به‌روزرسانی وزن‌ها}
+	با فرض نرخ آموزش $\eta$، قانون به‌روزرسانی گرادیان نزولی به صورت $\theta_{new} = \theta_{old} - \eta \frac{\partial J}{\partial \theta}$ است.
+	
+	برای وزن‌های $W_{ij}$:
+	$$ W_{ij}^{(\text{new})} = W_{ij}^{(\text{old})} - \eta \left( -(y_i - \hat{y}_i) h_j \right) $$
+	$$ W_{ij} \leftarrow W_{ij} + \eta (y_i - \hat{y}_i) h_j $$
+	
+	برای وزن‌های $V_{ij}$:
+	با استفاده از گرادیان محاسبه شده در بخش (ه):
+	$$ V_{ij}^{(\text{new})} = V_{ij}^{(\text{old})} - \eta \left( - \left[ \sum_{k=1}^{2} (y_k - \hat{y}_k) W_{ki} \right] f'(g_i) x_j \right) $$
+	$$ V_{ij} \leftarrow V_{ij} + \eta \left( \sum_{k=1}^{2} (y_k - \hat{y}_k) W_{ki} \right) f'(g_i) x_j $$
+	
+\end{document}
